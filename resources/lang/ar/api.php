@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'success' => 'تمت العملية بنجاح.',
+    'error' => 'حدث خطأ.',
+    'validation_failed' => 'فشل التحقق من البيانات.',
+    'login_success' => 'تم تسجيل الدخول بنجاح.',
+    'register_success' => 'تم التسجيل بنجاح. تم إرسال رمز التحقق.',
+    'otp_sent' => 'تم إرسال رمز التحقق.',
+    'otp_verified' => 'تم التحقق من الرمز بنجاح.',
+    'otp_invalid' => 'رمز التحقق غير صالح.',
+    'otp_expired' => 'انتهت صلاحية رمز التحقق.',
+    'otp_too_many_attempts' => 'عدد محاولات كثيرة.',
+    'otp_resend_wait' => 'يرجى الانتظار قبل إعادة الإرسال.',
+    'password_reset_otp_sent' => 'تم إرسال رمز إعادة تعيين كلمة المرور.',
+    'password_reset_success' => 'تم تحديث كلمة المرور بنجاح.',
+    'unauthorized' => 'غير مصرح.',
+    'phone_not_verified' => 'رقم الهاتف غير موثق.',
+    'user_not_found' => 'المستخدم غير موجود.',
+    'not_implemented' => 'غير منفذ.',
+    'profile_updated' => 'تم تحديث الملف الشخصي بنجاح.',
+    'upload_success' => 'تم رفع الملف/الملفات بنجاح.',
+    'file_invalid' => 'ملف غير صالح.',
+    'file_too_large' => 'حجم الملف أكبر من المسموح به.',
+    'not_found' => 'المورد غير موجود.',
+    'created' => 'تم الإنشاء بنجاح.',
+    'updated' => 'تم التحديث بنجاح.',
+    'deleted' => 'تم الحذف بنجاح.',
+
+    // addresses
+    'address_created' => 'تم إنشاء العنوان بنجاح.',
+    'address_updated' => 'تم تحديث العنوان بنجاح.',
+    'address_deleted' => 'تم حذف العنوان بنجاح.',
+    'address_set_default' => 'تم تعيين العنوان كافتراضي.',
+    'address_not_found' => 'العنوان غير موجود.',
+    'forbidden' => 'ممنوع.',
+    'logout_success' => 'تم تسجيل الخروج بنجاح.',
+];
