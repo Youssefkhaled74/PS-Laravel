@@ -37,26 +37,20 @@ a{color:inherit;text-decoration:none}
 a:hover{opacity:.92}
 .no-scroll{overflow:hidden}
 
-/* Layout helpers */
+/* Typography */
+.h1{font-size:1.7rem;font-weight:800;letter-spacing:.2px;margin:0}
+.h2{font-size:1.15rem;font-weight:700;margin:0}
+.p{color:var(--muted);line-height:1.6;margin:.35rem 0 0}
+.small{font-size:.92rem;color:var(--muted)}
+
+/* Layout */
 .container{max-width:1120px;margin:0 auto;padding:1.5rem}
 .min-h-screen{min-height:100vh}
-.flex{display:flex}
-.flex-1{flex:1}
-.items-center{align-items:center}
-.justify-between{justify-content:space-between}
-.gap-2{gap:.5rem}
-.gap-3{gap:.75rem}
-.gap-4{gap:1rem}
-.gap-6{gap:1.5rem}
 .mt-6{margin-top:1.5rem}
 .mt-10{margin-top:2.5rem}
+.mt-20{margin-top:5rem}
 .mx-auto{margin-left:auto;margin-right:auto}
-
-/* Typography */
-.h1{font-size:1.7rem;font-weight:800;letter-spacing:.2px}
-.h2{font-size:1.15rem;font-weight:700}
-.p{color:var(--muted);line-height:1.6}
-.small{font-size:.92rem;color:var(--muted)}
+.max-w-md{max-width:520px}
 
 /* Card */
 .card{
@@ -94,7 +88,8 @@ a:hover{opacity:.92}
 }
 .btn-ghost:hover{background:rgba(255,255,255,.03)}
 
-/* Inputs */
+/* Forms */
+.form{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem}
 .form-group{display:flex;flex-direction:column;gap:.45rem}
 .label{font-weight:650;font-size:.95rem;color:rgba(255,255,255,.85)}
 
@@ -127,11 +122,10 @@ a:hover{opacity:.92}
   border-radius:10px;
 }
 .password-toggle:hover{background:rgba(255,255,255,.04)}
-/* directional placement */
 [dir="ltr"] .password-toggle{right:.35rem}
 [dir="rtl"] .password-toggle{left:.35rem}
 
-/* Alerts / Flash */
+/* Alerts */
 .alert{
   border:1px solid var(--border);
   border-radius:12px;
@@ -146,6 +140,18 @@ a:hover{opacity:.92}
 
 /* Admin shell */
 .admin-shell{display:flex;min-height:100vh}
+.admin-content{flex:1}
+
+.admin-topbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(10,10,10,.72);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:.85rem 1.25rem;
+}
+
 .admin-sidebar{
   width:280px;
   background:linear-gradient(180deg, rgba(16,16,16,.95), rgba(10,10,10,.95));
@@ -164,11 +170,13 @@ a:hover{opacity:.92}
   gap:.75rem;
   padding:.6rem .5rem;
 }
+.brand-left{display:flex;align-items:center;gap:.75rem}
 .brand .logo{
   width:38px;height:38px;border-radius:12px;
   background:linear-gradient(180deg, var(--gold-2), var(--gold));
   box-shadow:0 10px 24px rgba(139,90,20,.25);
 }
+
 .nav{
   display:flex;
   flex-direction:column;
@@ -192,18 +200,7 @@ a:hover{opacity:.92}
   color:#fff;
 }
 
-.admin-content{flex:1}
-.admin-topbar{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:rgba(10,10,10,.72);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--border);
-  padding:.85rem 1.25rem;
-}
-
-/* Dashboard grid */
+/* Grids */
 .grid{display:grid}
 .grid-4{grid-template-columns:repeat(4,1fr)}
 .grid-2{grid-template-columns:repeat(2,1fr)}
@@ -247,13 +244,6 @@ a:hover{opacity:.92}
   opacity:1;
   pointer-events:auto;
 }
-.admin-sidebar.is-open{
-  position:fixed;
-  z-index:60;
-  left:0; top:0;
-  transform:translateX(0);
-}
-[dir="rtl"] .admin-sidebar.is-open{left:auto; right:0}
 .admin-close{
   display:none;
 }
@@ -280,4 +270,13 @@ a:hover{opacity:.92}
     border-radius:10px;
     cursor:pointer;
   }
+}
+
+/* Login page wrapper */
+.auth-wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem;
 }

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.setAttribute('aria-pressed', String(isHidden));
       btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
 
-      // Icon swap (emoji simple)
+      // Icon swap
       btn.textContent = isHidden ? '🙈' : '👁️';
     });
   });
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openSidebar = () => {
     if (!sidebar) return;
-    sidebar.classList.remove('is-collapsed');
     sidebar.classList.add('is-open');
     overlay?.classList.add('is-visible');
     document.body.classList.add('no-scroll');

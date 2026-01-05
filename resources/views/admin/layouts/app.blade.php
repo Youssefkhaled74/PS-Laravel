@@ -13,13 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   @endif
 
-  @php $viteManifest = public_path('build/manifest.json'); @endphp
-  @if (file_exists($viteManifest))
-    @vite(['resources/css/app.css','resources/css/admin.css','resources/js/app.js','resources/js/admin.js'])
-  @else
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <script src="{{ asset('js/admin.js') }}" defer></script>
-  @endif
+  {{-- ✅ No Vite, No npm --}}
+  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  <script src="{{ asset('js/admin.js') }}" defer></script>
 
   <style>
     body{
