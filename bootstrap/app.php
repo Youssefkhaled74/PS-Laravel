@@ -12,10 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Register SetLocaleFromHeader for API routes (Laravel 12-style bootstrapping)
-        // This prepends the middleware into the 'api' middleware group so it runs on API requests.
-        // If your Laravel version exposes different middleware methods, adapt accordingly.
-        $middleware->prependToGroup('api', \App\Http\Middleware\SetLocaleFromHeader::class);
+        // ✅ Global middleware (runs for ALL HTTP routes: web + api)
+        $middleware->prepend(\App\Http\Middleware\SetLocaleFromHeader::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

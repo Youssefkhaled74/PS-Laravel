@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Address extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'user_id', 'label', 'country', 'city', 'district', 'street', 'building_no', 'apartment_no', 'floor', 'postal_code', 'phone', 'notes', 'lat', 'lng', 'is_default'
     ];

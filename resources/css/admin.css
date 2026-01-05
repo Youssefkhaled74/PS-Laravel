@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#0b0b0b;
+  --card:#0f0f0f;
+  --gold:#8B5a14;
+  --muted:#9CA3AF;
+}
+
+body{
+  background:var(--bg);
+  color:#fff;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.admin-card{background:linear-gradient(180deg,var(--card),#0b0b0b);border-radius:12px;padding:1rem;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+.btn-gold{background:var(--gold);color:#fff;border-radius:10px;padding:.6rem 1rem;font-weight:600}
+.input-dark{background:#0b0b0b;border:1px solid rgba(255,255,255,0.06);padding:.6rem;border-radius:8px;color:#fff}
+
+.rtl{direction:rtl}
+.ltr{direction:ltr}
+
+/* RTL adjustments */
+[dir="rtl"] .admin-card { text-align: right }
+[dir="ltr"] .admin-card { text-align: left }
+
+/* Logical padding for inputs */
+.input-dark { padding-inline-start: .75rem; padding-inline-end: .75rem }
+
