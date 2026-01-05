@@ -77,13 +77,13 @@
                     <form action="{{ route('admin.categories.toggle', $cat->id) }}" method="POST" style="display:inline">
                       @csrf
                       @method('PATCH')
-                      <button class="btn btn-success btn-sm" onclick="return confirm('{{ __('admin.categories.confirm_toggle') }}')">{{ __('admin.categories.toggle') }}</button>
+                      <button type="button" class="btn btn-success btn-sm js-confirm" data-confirm="{{ __('admin.categories.confirm_toggle') }}">{{ __('admin.categories.toggle') }}</button>
                     </form>
 
                     <form action="{{ route('admin.categories.destroy', $cat->id) }}" method="POST" style="display:inline">
                       @csrf
                       @method('DELETE')
-                      <button class="btn btn-danger btn-sm" onclick="return confirm('{{ __('admin.categories.confirm_delete') }}')">{{ __('admin.delete') }}</button>
+                      <button type="button" class="btn btn-danger btn-sm js-confirm" data-confirm="{{ __('admin.categories.confirm_delete') }}">{{ __('admin.delete') }}</button>
                     </form>
                   </div>
                 </td>
