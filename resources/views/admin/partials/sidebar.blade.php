@@ -34,6 +34,9 @@
   <a href="#" class="">
     {{ __('admin.sidebar.products') }}
   </a>
+  <a href="{{ route('admin.categories.index') }}" class="{{ $is('admin.categories.index') ? 'active' : '' }}">
+    {{ __('admin.sidebar.categories') }}
+  </a>
 
   <a href="#" class="">
     {{ __('admin.sidebar.settings') }}

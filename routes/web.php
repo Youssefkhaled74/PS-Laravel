@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['web', \App\Http\Middleware\SetAdminLocale::class]], function () {
     require __DIR__ . '/web/admin/auth.php';
     require __DIR__ . '/web/admin/dashboard.php';
+    require __DIR__ . '/web/admin/categories.php';
 });
 // Keep the default web root route
 Route::get('/', function () {
