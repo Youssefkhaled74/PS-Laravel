@@ -1,12 +1,41 @@
-<div class="text-center mb-6">
-  <h1 class="text-2xl font-bold">{{ __('admin.brand') }}</h1>
-  <p class="text-sm text-[#9CA3AF]">{{ __('admin.sidebar.title') }}</p>
+@php
+  $is = fn(string $name) => request()->routeIs($name);
+@endphp
+
+<div class="brand">
+  <div class="brand-left">
+    <div class="logo"></div>
+    <div>
+      <div class="h2">{{ __('admin.brand') }}</div>
+      <div class="small">{{ __('admin.sidebar.title') }}</div>
+    </div>
+  </div>
+
+  <button id="admin-close" class="admin-close" type="button">✕</button>
 </div>
-<nav class="space-y-2">
-  <a href="{{ route('admin.dashboard') }}" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.dashboard') }}</a>
-  <a href="{{ route('admin.users') }}" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.users') }}</a>
-  <a href="#" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.vendors') }}</a>
-  <a href="#" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.orders') }}</a>
-  <a href="#" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.products') }}</a>
-  <a href="#" class="block py-2 px-3 rounded hover:bg-[#111]">{{ __('admin.sidebar.settings') }}</a>
+
+<nav class="nav">
+  <a href="{{ route('admin.dashboard') }}" class="{{ $is('admin.dashboard') ? 'active' : '' }}">
+    {{ __('admin.sidebar.dashboard') }}
+  </a>
+
+  <a href="{{ route('admin.users') }}" class="{{ $is('admin.users') ? 'active' : '' }}">
+    {{ __('admin.sidebar.users') }}
+  </a>
+
+  <a href="#" class="">
+    {{ __('admin.sidebar.vendors') }}
+  </a>
+
+  <a href="#" class="">
+    {{ __('admin.sidebar.orders') }}
+  </a>
+
+  <a href="#" class="">
+    {{ __('admin.sidebar.products') }}
+  </a>
+
+  <a href="#" class="">
+    {{ __('admin.sidebar.settings') }}
+  </a>
 </nav>
