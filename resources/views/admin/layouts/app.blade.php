@@ -15,8 +15,7 @@
     @if (file_exists($viteManifest))
       @vite(['resources/css/app.css','resources/css/admin.css','resources/js/app.js','resources/js/admin.js'])
     @else
-      <!-- Vite manifest not found — using public fallback assets (ensure you run `npm run build` or `npm run dev`) -->
-      <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+      <!-- Vite manifest not found — using simple public fallback assets. Copy resources/css/admin.css -> public/css/admin.css and resources/js/admin.js -> public/js/admin.js if missing -->
       <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
       <script src="{{ asset('js/admin.js') }}" defer></script>
     @endif
