@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         // Seed users with realistic addresses
         $this->call([UsersTableSeeder::class]);
 
-        $this->call([AdminSeeder::class, CategorySeeder::class]);
+        $this->call([AdminSeeder::class, CategorySeeder::class, \Database\Seeders\BrandSeeder::class]);
     }
 }

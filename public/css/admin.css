@@ -503,3 +503,9 @@ select.input{appearance:none;background-image:linear-gradient(45deg,transparent 
 /* accessibility: screen-reader only helper */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
+/* Brands module helpers */
+.logo-thumb{width:48px;height:48px;object-fit:cover;border-radius:8px;border:1px solid var(--card-soft-border)}
+.file-input{display:block;border:1px dashed var(--card-soft-border);padding:.6rem;border-radius:10px;background:transparent}
+.grid-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:720px){.grid-form{grid-template-columns:1fr}}
+

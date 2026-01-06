@@ -23,6 +23,10 @@
     {{ __('admin.sidebar.users') }}
   </a>
 
+  <a href="{{ route('admin.brands.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.brands') ? 'active' : '' }}">
+    {{ __('admin.sidebar.brands') }}
+  </a>
+
   <a href="#" class="">
     {{ __('admin.sidebar.vendors') }}
   </a>
