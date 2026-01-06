@@ -4,7 +4,7 @@
 
 <div class="brand">
   <div class="brand-left">
-    <div class="logo"></div>
+    <div class="logo">PS</div>
     <div>
       <div class="h2">{{ __('admin.brand') }}</div>
       <div class="small">{{ __('admin.sidebar.title') }}</div>
@@ -19,7 +19,7 @@
     {{ __('admin.sidebar.dashboard') }}
   </a>
 
-  <a href="{{ route('admin.users') }}" class="{{ $is('admin.users') ? 'active' : '' }}">
+  <a href="{{ route('admin.users.index') }}" class="{{ $is('admin.users.index') ? 'active' : '' }}">
     {{ __('admin.sidebar.users') }}
   </a>
 

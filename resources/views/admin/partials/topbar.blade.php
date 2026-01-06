@@ -21,7 +21,7 @@
       @endif
     </a>
 
-    <span class="small" style="color:rgba(255,255,255,.75);">
+    <span class="small topbar-username">
       {{ auth('admin')->user()->name ?? '' }}
     </span>
 

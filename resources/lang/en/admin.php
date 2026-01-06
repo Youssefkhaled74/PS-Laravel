@@ -15,6 +15,14 @@ return [
     'dashboard' => [
         'title' => 'Dashboard',
         'welcome' => 'Welcome to the dashboard',
+        'subtitle' => 'Overview & quick stats',
+        'revenue' => 'Revenue',
+        'topbar' => 'Admin',
+        'table' => [
+            'time' => 'Time',
+            'user' => 'User',
+            'event' => 'Event',
+        ],
     ],
     'sidebar' => [
         'title' => 'Admin',
@@ -81,6 +89,20 @@ return [
         'form_hint' => 'Create or update admin credentials',
         'empty' => 'No admins found',
     ],
+    'users' => [
+        'title' => 'Users',
+        'subtitle' => 'Manage platform users',
+        'name' => 'Name',
+        'email' => 'Email',
+        'phone' => 'Phone',
+        'addresses' => 'Addresses',
+        'empty' => 'No users found',
+        'not_found' => 'User not found',
+        'profile' => 'Profile',
+        'joined' => 'Joined',
+        'address' => 'Address',
+        'no_addresses' => 'No addresses found',
+    ],
     'actions' => 'Actions',
     'save' => 'Save',
     'update' => 'Update',
@@ -92,10 +114,17 @@ return [
     'flash' => [
         'login_failed' => 'Invalid credentials',
         'logged_out' => 'You have been logged out',
+        'validation_error' => 'Validation error',
     ],
     'theme' => [
         'dark' => 'Dark',
         'light' => 'Light',
         'toggle' => 'Toggle theme',
     ],
+    'search' => 'Search',
+    'view' => 'View',
+    'back' => 'Back',
+    'status' => 'Status',
+    'all' => 'All',
+    'default' => 'Default',
 ];

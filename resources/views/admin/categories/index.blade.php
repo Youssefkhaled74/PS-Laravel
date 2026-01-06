@@ -13,34 +13,15 @@
       </div>
     </div>
 
-    <div class="card-soft">
-      <form method="GET" action="{{ route('admin.categories.index') }}">
-        <div class="filters">
-          <input type="text" name="search" placeholder="{{ __('admin.categories.search_placeholder') }}" class="input" value="{{ request('search') }}">
+    <x-admin.table-filters
+      :action="route('admin.categories.index')"
+      :resetUrl="route('admin.categories.index')"
+      :showStatus="true"
+      :showPerPage="true"
+      searchPlaceholder="{{ __('admin.categories.search_placeholder') }}"
+    />
 
-          <select name="status" class="input">
-            <option value="">{{ __('admin.filter') }}</option>
-            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>{{ __('admin.categories.active') }}</option>
-            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>{{ __('admin.categories.inactive') }}</option>
-          </select>
-
-          <select name="per_page" class="input">
-            <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10</option>
-            <option value="15" {{ request('per_page', 10) == 15 ? 'selected' : '' }}>15</option>
-            <option value="25" {{ request('per_page', 10) == 25 ? 'selected' : '' }}>25</option>
-          </select>
-
-          <div class="actions">
-            <button type="submit" class="btn btn-ghost btn-sm">{{ __('admin.filter') }}</button>
-            @if(request()->has('search') || request()->has('status') || request()->has('per_page'))
-              <a href="{{ route('admin.categories.index') }}" class="btn btn-ghost btn-sm">{{ __('admin.reset') }}</a>
-            @endif
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div class="mt-6 table-wrap">
+    <div class="mt-6 card table-wrap">
       @if($categories->count())
         <table class="table">
           <thead>

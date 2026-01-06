@@ -15,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        User::factory()->create([
-            'full_name' => 'Test User',
+        // keep a single test user (idempotent)
+        User::firstOrCreate([
             'email' => 'test@example.com',
+        ], [
+            'full_name' => 'Test User',
+            'country_code' => '+966',
+            'phone' => '500000000',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
         ]);
+
+        // Seed users with realistic addresses
+        $this->call([UsersTableSeeder::class]);
 
         $this->call([AdminSeeder::class, CategorySeeder::class]);
     }
