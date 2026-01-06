@@ -24,7 +24,7 @@
   </style>
 </head>
 
-<body>
+<body class="theme-{{ $adminTheme ?? 'dark' }}">
   @if(auth('admin')->check())
     <div class="admin-shell">
       <aside id="admin-sidebar" class="admin-sidebar">

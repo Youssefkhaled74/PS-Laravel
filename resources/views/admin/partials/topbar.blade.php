@@ -12,6 +12,15 @@
       {{ app()->getLocale() == 'ar' ? 'EN' : 'ع' }}
     </a>
 
+    {{-- Theme toggle --}}
+    <a class="btn btn-ghost btn-sm" href="{{ route('admin.theme.switch', ($adminTheme ?? 'dark') === 'dark' ? 'light' : 'dark') }}"> 
+      @if(($adminTheme ?? 'dark') === 'dark')
+        ☀️
+      @else
+        🌙
+      @endif
+    </a>
+
     <span class="small" style="color:rgba(255,255,255,.75);">
       {{ auth('admin')->user()->name ?? '' }}
     </span>

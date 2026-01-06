@@ -39,9 +39,17 @@
         {{ __('admin.login.submit') }}
       </button>
 
-      <div style="display:flex;justify-content:center;margin-top:.5rem;">
+      <div style="display:flex;justify-content:center;margin-top:.5rem;gap:.5rem;">
         <a class="btn btn-ghost" href="{{ route('admin.lang', app()->getLocale() == 'ar' ? 'en' : 'ar') }}">
           {{ app()->getLocale() == 'ar' ? 'EN' : 'ع' }}
+        </a>
+
+        <a class="btn btn-ghost btn-sm" href="{{ route('admin.theme.switch', ($adminTheme ?? 'dark') === 'dark' ? 'light' : 'dark') }}">
+          @if(($adminTheme ?? 'dark') === 'dark')
+            ☀️
+          @else
+            🌙
+          @endif
         </a>
       </div>
     </form>

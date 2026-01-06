@@ -38,6 +38,10 @@
     {{ __('admin.sidebar.categories') }}
   </a>
 
+  <a href="{{ route('admin.admins.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.admins') ? 'active' : '' }}">
+    {{ __('admin.sidebar.admins') }}
+  </a>
+
   <a href="#" class="">
     {{ __('admin.sidebar.settings') }}
   </a>
