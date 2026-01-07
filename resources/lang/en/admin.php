@@ -275,6 +275,8 @@ return [
     'legal_pages' => [
         'title' => 'Terms & Privacy',
         'subtitle' => 'Manage site legal pages',
+        'empty_title' => 'No legal pages',
+        'empty_hint' => 'No pages found. Seed default pages via the seeder or create manually.',
         'terms' => 'Terms & Conditions',
         'privacy' => 'Privacy Policy',
         'edit' => 'Edit',
@@ -289,6 +291,7 @@ return [
         'preview_ar' => 'Preview Arabic',
         'saved_success' => 'Saved successfully',
         'version' => 'Version',
+        'last_updated' => 'Last updated',
     ],
     
     'search' => 'Search',
