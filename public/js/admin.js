@@ -207,4 +207,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Live preview renderer for legal pages editor
+  const renderMarkdownLite = (text) => {
+    if (!text) return '';
+    const lines = text.split(/\r?\n/);
+    let out = '';
+    let inList = false;
+    lines.forEach((raw) => {
+      const line = raw.trim();
+      if (line === '') {
+        if (inList) { out += '</ul>'; inList = false; }
+        out += '<p></p>';
+        return;
+      }
+      if (line.startsWith('- ')) {
+        if (!inList) { inList = true; out += '<ul>'; }
+        out += '<li>' + line.substring(2) + '</li>';
+        return;
+      }
+      if (inList) { out += '</ul>'; inList = false; }
+      // headings: lines starting with '## ' render as bold heading
+      if (line.startsWith('## ')) {
+        out += '<p style="font-weight:700;margin-bottom:.6rem">' + line.substring(3) + '</p>';
+        return;
+      }
+      out += '<p>' + line + '</p>';
+    });
+    if (inList) out += '</ul>';
+    return out;
+  };
+
+  document.body.addEventListener('input', (e) => {
+    const ta = e.target.closest && e.target.closest('textarea[data-live-preview-target]');
+    if (!ta) return;
+    const lang = ta.getAttribute('data-live-preview-target');
+    const preview = document.querySelector('[data-live-preview="' + lang + '"]');
+    if (!preview) return;
+    preview.innerHTML = renderMarkdownLite(ta.value || '');
+  });
+
+  // Tabs for switching preview language
+  document.body.addEventListener('click', (e) => {
+    const tab = e.target.closest && e.target.closest('[data-preview-tab]');
+    if (!tab) return;
+    const which = tab.getAttribute('data-preview-tab');
+    const container = tab.closest('.preview-column');
+    if (!container) return;
+    container.querySelectorAll('.tab').forEach((b) => b.classList.remove('active'));
+    tab.classList.add('active');
+    container.querySelectorAll('[data-live-preview]').forEach((el) => {
+      el.style.display = el.getAttribute('data-live-preview') === which ? '' : 'none';
+    });
+  });
+
 });

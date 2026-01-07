@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\BrandSeeder::class,
             \Database\Seeders\BankSeeder::class,
             \Database\Seeders\VendorSeeder::class,
+            \Database\Seeders\LegalPagesSeeder::class,
         ]);
     }
 }

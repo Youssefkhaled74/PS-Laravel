@@ -58,6 +58,10 @@
     {{ __('admin.sidebar.admins') }}
   </a>
 
+  <a href="{{ route('admin.legal-pages.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.legal-pages') ? 'active' : '' }}">
+    {{ __('admin.sidebar.legal_pages') }}
+  </a>
+
   <a href="#" class="">
     {{ __('admin.sidebar.settings') }}
   </a>
