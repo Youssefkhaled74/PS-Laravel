@@ -31,6 +31,10 @@
     {{ __('admin.sidebar.banks') }}
   </a>
 
+  <a href="{{ route('admin.vendor-packages.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.vendor-packages') ? 'active' : '' }}">
+    {{ __('admin.sidebar.vendor_packages') }}
+  </a>
+
   <a href="{{ route('admin.otps.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.otps') ? 'active' : '' }}">
     {{ __('admin.sidebar.otps') }}
   </a>

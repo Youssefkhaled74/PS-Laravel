@@ -11,7 +11,11 @@ Route::group(['middleware' => ['web', \App\Http\Middleware\SetAdminLocale::class
     require __DIR__ . '/web/admin/users.php';
     require __DIR__ . '/web/admin/brands.php';
     require __DIR__ . '/web/admin/banks.php';
+    require __DIR__ . '/web/admin/vendor-packages.php';
     require __DIR__ . '/web/admin/otps.php';
+    require __DIR__ . '/web/admin/vendors.php';
+    // vendor onboarding (public + vendor-guarded)
+    require __DIR__ . '/web/vendor_onboarding.php';
     
     // Theme switch route (available to both guests and logged-in admins)
     Route::get('admin/theme/{theme}', function ($theme) {
