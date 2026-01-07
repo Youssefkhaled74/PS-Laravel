@@ -38,17 +38,15 @@
       </div>
 
       <div class="form-group mt-3">
-        <label class="label">{{ __('admin.banks.logo') }}</label>
-        <div class="card-soft">
-          <div style="display:flex;gap:.75rem;align-items:center">
-            <img src="{{ asset($bank->logo ?? 'images/brand-placeholder.png') }}" class="logo-thumb" alt="logo">
-            <div>
-              <div class="small p">{{ __('admin.banks.current_logo') ?? '' }}</div>
-              <div class="small p">{{ __('admin.banks.replace_hint') ?? '' }}</div>
-            </div>
-          </div>
-        </div>
-        <input type="file" name="logo" accept="image/*" class="input mt-2">
+        <x-admin.upload-preview
+          name="logo"
+          label="{{ __('admin.banks.logo') }}"
+          currentUrl="{{ $bank->logo ? asset($bank->logo) : '' }}"
+          accept="image/png,image/jpeg,image/webp"
+          hint="{{ __('admin.banks.replace_hint') }}"
+          variant="square"
+          size="md"
+        />
       </div>
 
       <div class="actions mt-4">

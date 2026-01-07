@@ -37,8 +37,14 @@
       </div>
 
       <div class="form-group mt-3">
-        <label class="label">{{ __('admin.banks.logo') }}</label>
-        <input type="file" name="logo" accept="image/*" class="input">
+        <x-admin.upload-preview
+          name="logo"
+          label="{{ __('admin.banks.logo') }}"
+          accept="image/png,image/jpeg,image/webp"
+          hint="{{ __('admin.upload_hint_image') }}"
+          variant="square"
+          size="md"
+        />
       </div>
 
       <div class="actions mt-4">

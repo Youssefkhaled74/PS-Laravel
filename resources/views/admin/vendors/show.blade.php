@@ -58,7 +58,15 @@
               <textarea name="bio" class="input">{{ $vendor->bio }}</textarea>
 
               <label class="label">{{ __('admin.avatar') ?? 'Avatar' }}</label>
-              <input type="file" name="avatar" class="input">
+              <x-admin.upload-preview
+                name="avatar"
+                label="{{ __('admin.avatar') }}"
+                currentUrl="{{ $vendor->avatar ? asset($vendor->avatar) : '' }}"
+                accept="image/png,image/jpeg,image/webp"
+                hint="{{ __('admin.upload_hint_image') }}"
+                variant="circle"
+                size="md"
+              />
 
               <div style="display:flex;gap:.6rem;justify-content:flex-end;margin-top:.5rem">
                 <button class="btn btn-ghost">{{ __('admin.cancel') }}</button>

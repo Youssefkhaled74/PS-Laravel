@@ -399,6 +399,39 @@ label .small{color:var(--muted)}
 .btn-sm{padding:.38rem .6rem;font-size:.9rem;border-radius:10px}
 .table-wrap{overflow:auto;border-radius:12px;border:1px solid var(--card-soft-border)}
 
+/* === Upload Preview Component Styles START === */
+.upload-tile{display:flex;flex-direction:column;gap:.5rem}
+.upload-meta{display:flex;flex-direction:column;gap:.25rem}
+.upload-label{font-weight:700;color:var(--text);font-size:.95rem}
+.upload-hint{font-size:.88rem;color:var(--muted)}
+.upload-inner{display:flex;align-items:center;gap:1rem}
+.upload-preview-wrap{flex:0 0 auto}
+.upload-preview{width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid var(--card-soft-border);background:var(--overlay-1);display:block}
+.upload-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;padding:.6rem;border-radius:10px;min-width:88px;min-height:88px}
+.upload-placeholder .placeholder-icon{font-size:1.5rem;margin-bottom:.25rem}
+.upload-actions{display:flex;gap:.45rem;align-items:center}
+.upload-filename{font-size:.9rem;color:var(--muted);margin-top:.35rem}
+.upload-size-sm .upload-preview{width:56px;height:56px;border-radius:8px}
+.upload-size-md .upload-preview{width:88px;height:88px}
+.upload-size-lg .upload-preview{width:140px;height:140px}
+.upload-circle .upload-preview{border-radius:999px}
+.upload-doc .upload-preview{display:flex;align-items:center;justify-content:center}
+.upload-doc .doc-icon{font-size:1.6rem;margin-bottom:.25rem}
+.upload-doc .doc-name{font-size:.85rem;color:var(--muted)}
+.upload-preview:focus{outline:none;box-shadow:0 0 0 4px var(--focus-ring)}
+.upload-actions .btn{padding:.4rem .6rem;font-size:.92rem}
+
+/* RTL support (logical spacing) */
+[dir="rtl"] .upload-inner{flex-direction:row-reverse}
+[dir="rtl"] .upload-actions{flex-direction:row-reverse}
+
+/* Hover / focus polish */
+.upload-tile:hover .upload-preview, .upload-tile:focus-within .upload-preview{box-shadow:var(--shadow-soft);transform:translateY(-2px)}
+
+/* small responsive tweak */
+@media(max-width:720px){.upload-inner{flex-direction:row;gap:.6rem}.upload-meta{margin-bottom:.25rem}}
+/* === Upload Preview Component Styles END === */
+
 /* === Status Toggle Component styles (start) === */
 .btn-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .65rem;border-radius:999px;border:1px solid transparent;font-weight:700;cursor:pointer}
 .btn-pill-md{padding:.48rem .75rem;font-size:0.95rem}
