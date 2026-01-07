@@ -39,7 +39,7 @@
     {{ __('admin.sidebar.otps') }}
   </a>
 
-  <a href="#" class="">
+  <a href="{{ route('admin.vendors.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.vendors') ? 'active' : '' }}">
     {{ __('admin.sidebar.vendors') }}
   </a>
 

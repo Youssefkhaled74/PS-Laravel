@@ -52,5 +52,22 @@
       </div>
     </div>
   @endif
+
+  {{-- Global admin modal (used by actions like status toggle, delete, etc.) --}}
+  <div id="admin-global-modal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-modal-close></div>
+    <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-modal-title">
+      <header class="admin-modal-header">
+        <h3 id="admin-modal-title" class="h3">Modal Title</h3>
+      </header>
+      <div class="admin-modal-body">
+        <p id="admin-modal-text">Modal description</p>
+      </div>
+      <footer class="admin-modal-footer">
+        <button type="button" class="btn btn-ghost" data-modal-cancel>{{ __('admin.cancel') }}</button>
+        <button type="button" class="btn btn-danger" data-modal-confirm>{{ __('admin.confirm') }}</button>
+      </footer>
+    </div>
+  </div>
 </body>
 </html>

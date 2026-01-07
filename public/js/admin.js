@@ -48,81 +48,64 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeSidebar();
   });
 
-  // Custom confirm modal: delegate to buttons with .js-confirm
-  const createModal = () => {
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.innerHTML = `
-      <div class="modal-box" role="dialog" aria-modal="true">
-        <div class="modal-title"></div>
-        <div class="modal-body"></div>
-        <div class="modal-actions">
-          <button class="btn btn-cancel">{{ cancelLabel }}</button>
-          <button class="btn btn-confirm">{{ okLabel }}</button>
-        </div>
-      </div>
-    `;
-    // we'll replace placeholders later
-    document.body.appendChild(overlay);
-    return overlay;
-  };
+  // Global admin modal (uses markup included in admin layout)
+  const globalModal = document.getElementById('admin-global-modal');
+  if (globalModal) {
+    const modalBackdrop = globalModal.querySelector('[data-modal-close]') || globalModal.querySelector('.admin-modal-backdrop');
+    const modalCard = globalModal.querySelector('.admin-modal-card');
+    const modalTitle = document.getElementById('admin-modal-title');
+    const modalText = document.getElementById('admin-modal-text');
+    const btnCancel = globalModal.querySelector('[data-modal-cancel]');
+    const btnConfirm = globalModal.querySelector('[data-modal-confirm]');
+    let onConfirm = null;
 
-  // localize default labels (attempt to pull from data attributes on body)
-  const okLabel = document.body.getAttribute('data-confirm-ok') || 'OK';
-  const cancelLabel = document.body.getAttribute('data-confirm-cancel') || 'Cancel';
-
-  // Build modal and cache references
-  const modalOverlay = createModal();
-  const modalBox = modalOverlay.querySelector('.modal-box');
-  const modalTitle = modalOverlay.querySelector('.modal-title');
-  const modalBody = modalOverlay.querySelector('.modal-body');
-  const btnCancel = modalOverlay.querySelector('.btn-cancel');
-  const btnOk = modalOverlay.querySelector('.btn-confirm');
-
-  // Inject localized labels
-  btnOk.textContent = okLabel;
-  btnCancel.textContent = cancelLabel;
-
-  const showConfirm = (message, title = '') => new Promise((resolve) => {
-    modalTitle.textContent = title;
-    modalBody.textContent = message;
-    modalOverlay.classList.add('is-visible');
-
-    const clean = () => {
-      modalOverlay.classList.remove('is-visible');
-      btnOk.removeEventListener('click', onOk);
-      btnCancel.removeEventListener('click', onCancel);
+    const openAdminModal = (title = '', text = '', cb = null) => {
+      if (modalTitle) modalTitle.textContent = title || '';
+      if (modalText) modalText.textContent = text || '';
+      globalModal.setAttribute('aria-hidden', 'false');
+      onConfirm = typeof cb === 'function' ? cb : null;
+      if (btnConfirm) btnConfirm.focus();
+      document.addEventListener('keydown', escHandler);
     };
 
-    const onOk = () => { clean(); resolve(true); };
-    const onCancel = () => { clean(); resolve(false); };
+    const closeAdminModal = () => {
+      globalModal.setAttribute('aria-hidden', 'true');
+      onConfirm = null;
+      document.removeEventListener('keydown', escHandler);
+    };
 
-    btnOk.addEventListener('click', onOk);
-    btnCancel.addEventListener('click', onCancel);
-  });
+    const escHandler = (e) => { if (e.key === 'Escape') closeAdminModal(); };
 
-  document.body.addEventListener('click', (e) => {
-    const btn = e.target.closest && e.target.closest('.js-confirm');
-    if (!btn) return;
-    e.preventDefault();
-    const message = btn.getAttribute('data-confirm') || 'Are you sure?';
-    const title = btn.getAttribute('data-confirm-title') || '';
+    btnCancel && btnCancel.addEventListener('click', closeAdminModal);
+    modalBackdrop && modalBackdrop.addEventListener('click', closeAdminModal);
+    btnConfirm && btnConfirm.addEventListener('click', () => { if (onConfirm) onConfirm(); closeAdminModal(); });
 
-    // find enclosing form to submit on confirm
-    const frm = btn.closest('form');
+    // Delegate clicks for status toggles and generic confirms
+    document.body.addEventListener('click', (e) => {
+      const btn = e.target.closest && (e.target.closest('.js-status-toggle') || e.target.closest('.js-confirm'));
+      if (!btn) return;
+      e.preventDefault();
 
-    showConfirm(message, title).then((ok) => {
-      if (!ok) return;
-      if (frm) frm.submit();
-      else {
-        // if not inside a form but has data-action-url, perform fetch
-        const url = btn.getAttribute('data-action-url');
-        const method = btn.getAttribute('data-action-method') || 'POST';
-        if (url) {
-          fetch(url, { method: method, headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '' } })
-            .then(() => window.location.reload());
-        }
+      // Status toggle button
+      if (btn.classList.contains('js-status-toggle')) {
+        const confirmEnabled = btn.getAttribute('data-confirm-enabled') !== '0';
+        const title = btn.getAttribute('data-confirm-title') || '';
+        const text = btn.getAttribute('data-confirm-text') || '';
+        const targetSelector = btn.getAttribute('data-toggle-target');
+        const formEl = targetSelector ? document.querySelector(targetSelector) : btn.closest('form');
+        const submitFn = () => { if (formEl) formEl.submit(); };
+        if (confirmEnabled) openAdminModal(title, text, submitFn); else submitFn();
+        return;
+      }
+
+      // Generic .js-confirm
+      if (btn.classList.contains('js-confirm')) {
+        const msg = btn.getAttribute('data-confirm') || 'Are you sure?';
+        const title = btn.getAttribute('data-confirm-title') || '';
+        const formEl = btn.closest('form');
+        const submitFn = () => { if (formEl) formEl.submit(); };
+        openAdminModal(title, msg, submitFn);
       }
     });
-  });
+  }
 });

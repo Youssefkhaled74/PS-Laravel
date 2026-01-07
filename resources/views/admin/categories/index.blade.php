@@ -55,11 +55,11 @@
                   <div class="actions">
                     <a href="{{ route('admin.categories.edit', $cat->id) }}" class="btn btn-ghost btn-sm">{{ __('admin.categories.edit') }}</a>
 
-                    <form action="{{ route('admin.categories.toggle', $cat->id) }}" method="POST" style="display:inline">
-                      @csrf
-                      @method('PATCH')
-                      <button type="button" class="btn btn-success btn-sm js-confirm" data-confirm="{{ __('admin.categories.confirm_toggle') }}">{{ __('admin.categories.toggle') }}</button>
-                    </form>
+                    <x-admin.status-toggle
+                      :action="route('admin.categories.toggle', $cat->id)"
+                      :status="$cat->status"
+                      size="sm"
+                    />
 
                     <form action="{{ route('admin.categories.destroy', $cat->id) }}" method="POST" style="display:inline">
                       @csrf
