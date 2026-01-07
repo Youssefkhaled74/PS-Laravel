@@ -30,7 +30,40 @@ Route::group(['middleware' => ['web', \App\Http\Middleware\SetAdminLocale::class
         return redirect()->back()->withCookie(cookie('admin_theme', $theme, $minutes));
     })->name('admin.theme.switch');
 });
-// Keep the default web root route
+// Keep the default web root route (landing page)
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+// Language switch (sets session locale and redirects back)
+Route::get('/lang/{locale}', function ($locale) {
+    $allowed = ['en', 'ar'];
+    if (!in_array($locale, $allowed)) {
+        abort(404);
+    }
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('lang.switch');
+
+// Legal pages (stubs - could be loaded from DB via controller)
+Route::get('/terms', function () {
+    return view('legal.stub', ['title' => 'Terms & Conditions', 'key' => 'terms']);
+})->name('legal.terms');
+
+Route::get('/privacy', function () {
+    return view('legal.stub', ['title' => 'Privacy Policy', 'key' => 'privacy']);
+})->name('legal.privacy');
+
+// Contact form POST (simple handling)
+use Illuminate\Http\Request;
+Route::post('/contact', function (Request $request) {
+    $data = $request->validate([
+        'name' => 'required|string|max:191',
+        'email' => 'required|email|max:191',
+        'phone' => 'nullable|string|max:50',
+        'message' => 'required|string|max:2000',
+    ]);
+    // For now, we won't persist. You can hook this to a model/controller later.
+    // Flash success and redirect back
+    return redirect()->back()->with('success', __('landing.contact_success'));
+})->name('contact.submit');

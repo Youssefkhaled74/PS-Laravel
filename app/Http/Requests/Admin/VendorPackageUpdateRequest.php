@@ -3,12 +3,13 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class VendorPackageUpdateRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->check();
+        return Auth::check();
     }
 
     public function rules()

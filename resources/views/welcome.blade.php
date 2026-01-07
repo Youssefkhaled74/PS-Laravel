@@ -1,3 +1,187 @@
+@php
+    $locale = session('locale', app()->getLocale());
+    $dir = ($locale === 'ar') ? 'rtl' : 'ltr';
+    $alignStart = ($dir === 'rtl') ? 'right' : 'left';
+    $alignEnd = ($dir === 'rtl') ? 'left' : 'right';
+@endphp
+<!doctype html>
+<html lang="{{ $locale }}" dir="{{ $dir }}" class="theme-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ __('landing.title') }}</title>
+    <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+</head>
+<body>
+<header class="nav-wrap">
+    <nav class="navbar">
+        <div class="brand">PS</div>
+        <button class="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+            <li><a href="#home">{{ __('landing.menu.home') }}</a></li>
+            <li><a href="#about">{{ __('landing.menu.about') }}</a></li>
+            <li><a href="#features">{{ __('landing.menu.features') }}</a></li>
+            <li><a href="#how">{{ __('landing.menu.how') }}</a></li>
+            <li><a href="#contact">{{ __('landing.menu.contact') }}</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="btn btn-cta" href="#download">{{ __('landing.download') }}</a>
+            <div class="switches">
+                <a href="{{ route('lang.switch', $locale === 'ar' ? 'en' : 'ar') }}" class="lang-switch" id="langSwitch">{{ $locale === 'ar' ? 'EN' : 'ع' }}</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-panel" aria-hidden="true">
+        <ul>
+            <li><a href="#home">{{ __('landing.menu.home') }}</a></li>
+            <li><a href="#about">{{ __('landing.menu.about') }}</a></li>
+            <li><a href="#features">{{ __('landing.menu.features') }}</a></li>
+            <li><a href="#how">{{ __('landing.menu.how') }}</a></li>
+            <li><a href="#contact">{{ __('landing.menu.contact') }}</a></li>
+        </ul>
+    </div>
+</header>
+
+<main id="home">
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>{{ __('landing.hero.title') }}</h1>
+                <p class="lead">{{ __('landing.hero.subtitle') }}</p>
+                <div class="stores">
+                    <a class="store-btn" href="#">{{ __('landing.store.appstore') }}</a>
+                    <a class="store-btn" href="#">{{ __('landing.store.playstore') }}</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true"></div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container two-col">
+            <div class="about-media" aria-hidden="true"></div>
+            <div class="about-text">
+                <span class="label">{{ __('landing.about.label') }}</span>
+                <h2>{{ __('landing.about.title') }}</h2>
+                <p>{{ __('landing.about.text') }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container center">
+            <h2>{{ __('landing.features.title') }}</h2>
+            <p class="muted">{{ __('landing.features.subtitle') }}</p>
+            <div class="features-wrap">
+                <div class="feature-cards left">
+                    <div class="card">{{ __('landing.features.f1') }}</div>
+                    <div class="card">{{ __('landing.features.f2') }}</div>
+                </div>
+                <div class="phone-mock" aria-hidden="true"></div>
+                <div class="feature-cards right">
+                    <div class="card">{{ __('landing.features.f3') }}</div>
+                    <div class="card">{{ __('landing.features.f4') }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how" class="how">
+        <div class="container">
+            <h2>{{ __('landing.how.title') }}</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-thumb" aria-hidden="true"></div>
+                    <h3>{{ __('landing.how.s1.title') }}</h3>
+                    <p>{{ __('landing.how.s1.text') }}</p>
+                </div>
+                <div class="step">
+                    <div class="step-thumb" aria-hidden="true"></div>
+                    <h3>{{ __('landing.how.s2.title') }}</h3>
+                    <p>{{ __('landing.how.s2.text') }}</p>
+                </div>
+                <div class="step">
+                    <div class="step-thumb" aria-hidden="true"></div>
+                    <h3>{{ __('landing.how.s3.title') }}</h3>
+                    <p>{{ __('landing.how.s3.text') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="big-cta" id="download">
+        <div class="container two-col">
+            <div class="phones" aria-hidden="true"></div>
+            <div class="cta-text">
+                <h2>{{ __('landing.cta.title') }}</h2>
+                <p>{{ __('landing.cta.text') }}</p>
+                <div class="stores">
+                    <a class="store-btn" href="#">{{ __('landing.store.appstore') }}</a>
+                    <a class="store-btn" href="#">{{ __('landing.store.playstore') }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container two-col">
+            <div class="contact-form">
+                <h3>{{ __('landing.contact.title') }}</h3>
+                @if(session('success'))
+                    <div class="alert success">{{ session('success') }}</div>
+                @endif
+                <form method="POST" action="{{ route('contact.submit') }}">
+                    @csrf
+                    <label>{{ __('landing.form.name') }}<input name="name" required></label>
+                    <label>{{ __('landing.form.email') }}<input name="email" type="email" required></label>
+                    <label>{{ __('landing.form.phone') }}<input name="phone"></label>
+                    <label>{{ __('landing.form.message') }}<textarea name="message" required></textarea></label>
+                    <button class="btn btn-primary" type="submit">{{ __('landing.form.send') }}</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>{{ __('landing.contact.support') }}</h3>
+                <div class="info-box">📞 {{ __('landing.contact.phone') }}: <a href="tel:+123456789">+1 234 567 89</a></div>
+                <div class="info-box">✉️ {{ __('landing.contact.email') }}: <a href="mailto:hello@example.com">hello@example.com</a></div>
+                <div class="info-box">💬 {{ __('landing.contact.whatsapp') }}: <a href="#">WhatsApp</a></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <h4>PS</h4>
+            <p>{{ __('landing.footer.about_short') }}</p>
+        </div>
+        <div>
+            <h5>{{ __('landing.footer.links') }}</h5>
+            <ul>
+                <li><a href="#about">{{ __('landing.menu.about') }}</a></li>
+                <li><a href="#features">{{ __('landing.menu.features') }}</a></li>
+                <li><a href="#contact">{{ __('landing.menu.contact') }}</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>{{ __('landing.footer.legal') }}</h5>
+            <ul>
+                <li><a href="{{ route('legal.terms') }}">{{ __('landing.footer.terms') }}</a></li>
+                <li><a href="{{ route('legal.privacy') }}">{{ __('landing.footer.privacy') }}</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>{{ __('landing.footer.social') }}</h5>
+            <div class="socials">🔗</div>
+        </div>
+    </div>
+    <div class="copyright">&copy; {{ date('Y') }} PS. {{ __('landing.footer.copy') }}</div>
+</footer>
+
+<script src="{{ asset('js/landing.js') }}" defer></script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

@@ -1,6 +1,7 @@
 <?php
 
-return [
+return [            
+    // common
     'success' => 'Operation successful.',
     'error' => 'An error occurred.',
     'validation_failed' => 'Validation failed.',
