@@ -263,6 +263,12 @@ return [
     'view' => 'View',
     'back' => 'Back',
     'status' => 'Status',
+    'avatar' => 'Avatar',
+    'bio' => 'Bio',
+    'documents' => 'Documents',
+    'extra_data' => 'Extra Data',
+    'select' => 'Select',
+    'created_at' => 'Created at',
     'all' => 'All',
     'default' => 'Default',
 ];

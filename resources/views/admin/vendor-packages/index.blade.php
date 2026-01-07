@@ -55,11 +55,12 @@
                   <div class="actions">
                     <a href="{{ route('admin.vendor-packages.edit', $p->id) }}" class="btn btn-ghost btn-sm">{{ __('admin.vendor_packages.edit') }}</a>
 
-                    <form action="{{ route('admin.vendor-packages.toggle', $p->id) }}" method="POST" style="display:inline">
-                      @csrf
-                      @method('PATCH')
-                      <button type="button" class="btn btn-success btn-sm js-confirm" data-confirm="{{ __('admin.vendor_packages.confirm_toggle') }}">{{ __('admin.vendor_packages.toggle') ?? __('admin.update') }}</button>
-                    </form>
+                    <x-admin.status-toggle
+                      :action="route('admin.vendor-packages.toggle', $p->id)"
+                      :status="$p->status"
+                      size="sm"
+                      :confirmText="__('admin.vendor_packages.confirm_toggle')"
+                    />
 
                     <form action="{{ route('admin.vendor-packages.destroy', $p->id) }}" method="POST" style="display:inline">
                       @csrf

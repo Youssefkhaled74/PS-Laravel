@@ -53,11 +53,12 @@
                   <div class="actions">
                     <a href="{{ route('admin.brands.edit', $b->id) }}" class="btn btn-ghost btn-sm">{{ __('admin.brands.edit') }}</a>
 
-                    <form action="{{ route('admin.brands.toggle', $b->id) }}" method="POST" style="display:inline">
-                      @csrf
-                      @method('PATCH')
-                      <button type="button" class="btn btn-success btn-sm js-confirm" data-confirm="{{ __('admin.brands.confirm_toggle') }}">{{ __('admin.brands.toggle') ?? __('admin.update') }}</button>
-                    </form>
+                    <x-admin.status-toggle
+                      :action="route('admin.brands.toggle', $b->id)"
+                      :status="$b->status"
+                      size="sm"
+                      :confirmText="__('admin.brands.confirm_toggle')"
+                    />
 
                     <form action="{{ route('admin.brands.destroy', $b->id) }}" method="POST" style="display:inline">
                       @csrf

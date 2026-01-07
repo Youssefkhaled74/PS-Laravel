@@ -64,11 +64,12 @@
                 <td>
                   <div class="actions">
                     <a href="{{ route('admin.admins.edit', $a->id) }}" class="btn btn-ghost btn-sm">{{ __('admin.admins.edit') }}</a>
-                    <form action="{{ route('admin.admins.toggle', $a->id) }}" method="POST" style="display:inline">
-                      @csrf
-                      @method('PATCH')
-                      <button type="button" class="btn btn-success btn-sm js-confirm" data-confirm="{{ __('admin.admins.confirm_toggle') }}">{{ __('admin.admins.toggle') }}</button>
-                    </form>
+                    <x-admin.status-toggle
+                      :action="route('admin.admins.toggle', $a->id)"
+                      :status="$a->status"
+                      size="sm"
+                      :confirmText="__('admin.admins.confirm_toggle')"
+                    />
                     <form action="{{ route('admin.admins.destroy', $a->id) }}" method="POST" style="display:inline">
                       @csrf
                       @method('DELETE')
