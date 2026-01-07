@@ -10,6 +10,7 @@ Route::group(['middleware' => ['web', \App\Http\Middleware\SetAdminLocale::class
     require __DIR__ . '/web/admin/admins.php';
     require __DIR__ . '/web/admin/users.php';
     require __DIR__ . '/web/admin/brands.php';
+    require __DIR__ . '/web/admin/banks.php';
     require __DIR__ . '/web/admin/otps.php';
     
     // Theme switch route (available to both guests and logged-in admins)
