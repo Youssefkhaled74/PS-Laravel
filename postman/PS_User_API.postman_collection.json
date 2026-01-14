@@ -1,0 +1,438 @@
+{
+  "info": {
+    "name": "PS - User API",
+    "_postman_id": "ps-user-api-0001",
+    "description": "User Authentication, OTP, Password, Profile and Addresses flows for PS project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Collection-level pre-request: ensure base_url and lang defaults",
+          "if(!pm.environment.get('base_url') || pm.environment.get('base_url') === '') {",
+          "  pm.environment.set('base_url','http://127.0.0.1:8000');",
+          "}",
+          "if(!pm.environment.get('lang') || pm.environment.get('lang') === '') {",
+          "  pm.environment.set('lang','ar');",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "00 - Setup",
+      "description": "Health and language setup",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/up", "host": ["{{base_url}}"], "path": ["up"] },
+            "description": "Check service health at /up"
+          }
+        },
+        {
+          "name": "Set Language AR",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "ar" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/up", "host": ["{{base_url}}"], "path": ["up"] },
+            "description": "Sets Accept-Language to Arabic for next requests"
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": { "type": "text/javascript", "exec": ["pm.environment.set('lang','ar');"] }
+            }
+          ]
+        },
+        {
+          "name": "Set Language EN",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "en" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/up", "host": ["{{base_url}}"], "path": ["up"] },
+            "description": "Sets Accept-Language to English for next requests"
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": { "type": "text/javascript", "exec": ["pm.environment.set('lang','en');"] }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01 - Auth",
+      "item": [
+        {
+          "name": "Register (Phone)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\":\"Test User\",\n  \"phone\":\"{{phone}}\",\n  \"email\":\"{{email}}\",\n  \"password\":\"{{password}}\",\n  \"password_confirmation\":\"{{password}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/register", "host": ["{{base_url}}"], "path": ["api","user","auth","register"] },
+            "description": "Register a new user using phone"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data){",
+                  "  if(res.data.otp_session_id) pm.environment.set('otp_session_id', res.data.otp_session_id);",
+                  "  if(res.data.otp_id) pm.environment.set('otp_session_id', res.data.otp_id);",
+                  "  if(res.data.token) pm.environment.set('token', res.data.token);",
+                  "}",
+                  "pm.test('Register response status', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login (Phone + Password)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\":\"{{phone}}\",\n  \"password\":\"{{password}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/login", "host": ["{{base_url}}"], "path": ["api","user","auth","login"] },
+            "description": "Login with phone and password"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data && res.data.token){ pm.environment.set('token', res.data.token); }",
+                  "pm.test('Login status', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201,401]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/user/auth/logout", "host": ["{{base_url}}"], "path": ["api","user","auth","logout"] },
+            "description": "Invalidate current token (protected)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - OTP",
+      "item": [
+        {
+          "name": "Send OTP (Register)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\":\"{{phone}}\",\n  \"reason\":\"register\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/otp/send", "host": ["{{base_url}}"], "path": ["api","user","auth","otp","send"] },
+            "description": "Request OTP for registration"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data){",
+                  "  if(res.data.otp_session_id) pm.environment.set('otp_session_id', res.data.otp_session_id);",
+                  "  if(res.data.otp_id) pm.environment.set('otp_session_id', res.data.otp_id);",
+                  "}",
+                  "pm.test('OTP send status', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp_session_id\":\"{{otp_session_id}}\",\n  \"code\":\"{{otp_code}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/otp/verify", "host": ["{{base_url}}"], "path": ["api","user","auth","otp","verify"] },
+            "description": "Verify OTP; on success may return token"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data && res.data.token){ pm.environment.set('token', res.data.token); }",
+                  "if(res && res.data && res.data.reset_token){ pm.environment.set('reset_session_id', res.data.reset_token); }",
+                  "pm.test('OTP verify status', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resend OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp_session_id\":{{otp_session_id}}\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/otp/resend", "host": ["{{base_url}}"], "path": ["api","user","auth","otp","resend"] },
+            "description": "Resend OTP for session"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Password Reset",
+      "item": [
+        {
+          "name": "Forgot Password (Send OTP)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\":\"{{phone}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/password/forgot", "host": ["{{base_url}}"], "path": ["api","user","auth","password","forgot"] },
+            "description": "Request password reset OTP"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data){",
+                  "  if(res.data.otp_session_id) pm.environment.set('otp_session_id', res.data.otp_session_id);",
+                  "  if(res.data.otp_id) pm.environment.set('otp_session_id', res.data.otp_id);",
+                  "}",
+                  "pm.test('Forgot password OTP sent', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verify Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp_session_id\":\"{{otp_session_id}}\",\n  \"code\":\"{{otp_code}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/password/verify-otp", "host": ["{{base_url}}"], "path": ["api","user","auth","password","verify-otp"] },
+            "description": "Verify OTP for password reset"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data && res.data.reset_session_id){ pm.environment.set('reset_session_id', res.data.reset_session_id); }",
+                  "pm.test('Verify reset OTP', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"otp_session_id\":\"{{otp_session_id}}\",\n  \"password\":\"{{new_password}}\",\n  \"password_confirmation\":\"{{new_password}}\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/auth/password/reset", "host": ["{{base_url}}"], "path": ["api","user","auth","password","reset"] },
+            "description": "Complete password reset using reset token/session"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Profile",
+      "item": [
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/user/me", "host": ["{{base_url}}"], "path": ["api","user","me"] },
+            "description": "Get authenticated user profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Addresses",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/user/addresses", "host": ["{{base_url}}"], "path": ["api","user","addresses"] },
+            "description": "List user addresses"
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\":\"Home\",\n  \"city\":\"Riyadh\",\n  \"district\":\"Olaya\",\n  \"address_line\":\"Street 1\",\n  \"lat\":24.7136,\n  \"lng\":46.6753,\n  \"is_default\":true\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/addresses", "host": ["{{base_url}}"], "path": ["api","user","addresses"] },
+            "description": "Create new address"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var res = pm.response.json ? pm.response.json() : {};",
+                  "if(res && res.data){",
+                  "  if(res.data.id) pm.environment.set('address_id', res.data.id);",
+                  "  else if(res.data.address && res.data.address.id) pm.environment.set('address_id', res.data.address.id);",
+                  "}",
+                  "pm.test('Create address status', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\":\"Home Updated\",\n  \"city\":\"Riyadh\",\n  \"district\":\"Olaya\",\n  \"address_line\":\"Street 2\",\n  \"lat\":24.7136,\n  \"lng\":46.6753,\n  \"is_default\":true\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/user/addresses/{{address_id}}", "host": ["{{base_url}}"], "path": ["api","user","addresses","{{address_id}}"] },
+            "description": "Update an address (use environment variable address_id)"
+          }
+        },
+        {
+          "name": "Set Default",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/user/addresses/{{address_id}}/default", "host": ["{{base_url}}"], "path": ["api","user","addresses","{{address_id}}","default"] },
+            "description": "Set address as default"
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/user/addresses/{{address_id}}", "host": ["{{base_url}}"], "path": ["api","user","addresses","{{address_id}}"] },
+            "description": "Delete address by id"
+          }
+        }
+      ]
+    }
+  ]
+}

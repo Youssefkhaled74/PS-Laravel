@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Controllers\Api\User\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Http\Request;
+
+class LogoutController extends Controller
+{
+    use ApiResponseTrait;
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        if ($user) {
+            if (method_exists($user, 'currentAccessToken')) {
+                $token = $user->currentAccessToken();
+                if ($token) $token->delete();
+            } else {
+                if (method_exists($user, 'tokens')) {
+                    $user->tokens()->delete();
+                }
+            }
+        }
+
+        return $this->success(null, 'logout_success');
+    }
+}
