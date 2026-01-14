@@ -12,7 +12,8 @@ class OtpService
 {
     public function generateOtp(string $countryCode, string $phone, string $purpose): array
     {
-        $code = random_int(100000, 999999);
+        // Use a static OTP for development/testing
+        $code = '111111';
         $now = Carbon::now();
         $expires = $now->copy()->addMinutes(5);
         $resend = $now->copy()->addSeconds(30);
