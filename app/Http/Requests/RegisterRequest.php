@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
             'phone' => ['required','string','max:30'],
             'email' => ['nullable','email','max:191'],
             'password' => ['required','string','min:8','confirmed'],
-            'accept_terms' => ['required','accepted'],
+            'accept_terms' => ['nullable','boolean'],
         ];
     }
 
