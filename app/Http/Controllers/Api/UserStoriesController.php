@@ -34,9 +34,9 @@ class UserStoriesController extends Controller
         
         $vendors = $this->storyService->getVendorsWithStories($userId);
 
-        return $this->successResponse(
+        return $this->success(
             VendorStoryVendorListResource::collection($vendors),
-            __('Vendors retrieved successfully.')
+            'success'
         );
     }
 
@@ -49,19 +49,19 @@ class UserStoriesController extends Controller
     public function getVendorStories(Request $request, Vendor $vendor): JsonResponse
     {
         if ($vendor->status !== 'active') {
-            return $this->errorResponse(__('Vendor is not active.'), 404);
+            return $this->error('not_found', null, 404);
         }
 
         $userId = $request->user()?->id;
         $stories = $this->storyService->getVendorStories($vendor, $userId);
 
         if ($stories->isEmpty()) {
-            return $this->errorResponse(__('No active stories found for this vendor.'), 404);
+            return $this->error('not_found', null, 404);
         }
 
         $nextVendor = $this->storyService->getNextVendor($vendor, $userId);
 
-        return $this->successResponse([
+        return $this->success([
             'vendor' => [
                 'id' => $vendor->id,
                 'name' => $vendor->name,
@@ -70,7 +70,7 @@ class UserStoriesController extends Controller
             ],
             'stories' => VendorStoryItemResource::collection($stories),
             'next_vendor_id' => $nextVendor?->id,
-        ], __('Stories retrieved successfully.'));
+        ], 'success');
     }
 
     /**
@@ -84,16 +84,16 @@ class UserStoriesController extends Controller
         $userId = $request->user()->id;
 
         if (!$story->isActive()) {
-            return $this->errorResponse(__('Story is not active.'), 404);
+            return $this->error('not_found', null, 404);
         }
 
         $this->storyService->markStoryAsViewed($story, $userId);
         
         $vendorHasUnread = $this->storyService->vendorHasUnread($story->vendor, $userId);
 
-        return $this->successResponse([
+        return $this->success([
             'vendor_has_unread' => $vendorHasUnread,
-        ], __('Story marked as viewed.'));
+        ], 'success');
     }
 
     /**
@@ -107,13 +107,13 @@ class UserStoriesController extends Controller
         $userId = $request->user()->id;
 
         if ($vendor->status !== 'active') {
-            return $this->errorResponse(__('Vendor is not active.'), 404);
+            return $this->error('not_found', null, 404);
         }
 
         $count = $this->storyService->markVendorStoriesAsViewed($vendor, $userId);
 
-        return $this->successResponse([
+        return $this->success([
             'marked_count' => $count,
-        ], __('All stories marked as viewed.'));
+        ], 'success');
     }
 }
