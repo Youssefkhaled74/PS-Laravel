@@ -30,7 +30,30 @@ class OtpController extends Controller
     public function verify(VerifyOtpRequest $request)
     {
         $p = $request->validated();
-        $res = $this->otpService->verifyOtp($p['otp_id'], $p['code'], $p['purpose']);
+
+        // Support verification by otp_id OR by phone (latest otp record)
+        $otpId = $p['otp_id'] ?? null;
+        if (empty($otpId) && ! empty($p['phone'])) {
+            $country = $p['country_code'] ?? '+966';
+            $row = \Illuminate\Support\Facades\DB::table('otps')
+                ->where('country_code', $country)
+                ->where('phone', $p['phone'])
+                ->where('purpose', $p['purpose'])
+                ->orderByDesc('id')
+                ->first();
+
+            if (! $row) {
+                return $this->error('otp_invalid', null, 400);
+            }
+
+            $otpId = $row->id;
+        }
+
+        if (empty($otpId)) {
+            return $this->error('otp_invalid', null, 400);
+        }
+
+        $res = $this->otpService->verifyOtp((int)$otpId, $p['code'], $p['purpose']);
 
         if (! $res['ok']) {
             $map = [

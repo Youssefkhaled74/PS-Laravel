@@ -14,7 +14,10 @@ class VerifyOtpRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp_id' => ['required','integer'],
+            // Allow verification either by otp_id OR by phone+country_code
+            'otp_id' => ['nullable','integer','required_without:phone'],
+            'phone' => ['nullable','string','required_without:otp_id'],
+            'country_code' => ['nullable','string'],
             'code' => ['required','digits:6'],
             'purpose' => ['required','in:REGISTER_VERIFY,PASSWORD_RESET'],
         ];
