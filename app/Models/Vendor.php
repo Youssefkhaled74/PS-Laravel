@@ -42,4 +42,16 @@ class Vendor extends Authenticatable
     {
         return $this->hasMany(VendorPaymentSelection::class, 'vendor_id');
     }
+
+    public function stories(): HasMany
+    {
+        return $this->hasMany(VendorStory::class, 'vendor_id');
+    }
+
+    public function activeStories(): HasMany
+    {
+        return $this->hasMany(VendorStory::class, 'vendor_id')
+            ->active()
+            ->ordered();
+    }
 }

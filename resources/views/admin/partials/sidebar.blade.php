@@ -43,6 +43,14 @@
     {{ __('admin.sidebar.vendors') }}
   </a>
 
+  <a href="{{ route('admin.stories.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.stories') ? 'active' : '' }}">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:.35rem">
+      <circle cx="12" cy="12" r="10"></circle>
+      <polygon points="10 8 16 12 10 16 10 8"></polygon>
+    </svg>
+    {{ __('admin.sidebar.stories') }}
+  </a>
+
   <a href="#" class="">
     {{ __('admin.sidebar.orders') }}
   </a>

@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "vendor-stories-collection",
+		"name": "PS User Stories API",
+		"description": "Instagram-like stories feature for PS Laravel project - User endpoints only",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Vendors with Stories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Lang",
+						"value": "en",
+						"type": "text",
+						"description": "Language: en or ar"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/user/stories/vendors",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"stories",
+						"vendors"
+					]
+				},
+				"description": "Get list of vendors that have active stories. Returns:\n- vendor_id\n- vendor_name\n- vendor_logo_url\n- country_code\n- has_unread (boolean)\n- stories_count\n- latest_story_created_at"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Vendor Stories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Lang",
+						"value": "en",
+						"type": "text",
+						"description": "Language: en or ar"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/user/stories/vendor/:vendor_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"stories",
+						"vendor",
+						":vendor_id"
+					],
+					"variable": [
+						{
+							"key": "vendor_id",
+							"value": "1",
+							"description": "Vendor ID"
+						}
+					]
+				},
+				"description": "Get all active stories for a specific vendor. Returns:\n- vendor info (id, name, logo, country_code)\n- stories array (id, media_type, media_url, thumb_url, duration_seconds, is_viewed)\n- next_vendor_id (optional)"
+			},
+			"response": []
+		},
+		{
+			"name": "Mark Story as Viewed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Lang",
+						"value": "en",
+						"type": "text",
+						"description": "Language: en or ar"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/user/stories/:story_id/view",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"stories",
+						":story_id",
+						"view"
+					],
+					"variable": [
+						{
+							"key": "story_id",
+							"value": "1",
+							"description": "Story ID"
+						}
+					]
+				},
+				"description": "Mark a story as viewed by the authenticated user. Idempotent operation. Returns:\n- vendor_has_unread (boolean)"
+			},
+			"response": []
+		},
+		{
+			"name": "Mark All Vendor Stories as Viewed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Lang",
+						"value": "en",
+						"type": "text",
+						"description": "Language: en or ar"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/user/stories/vendor/:vendor_id/mark-all-viewed",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"stories",
+						"vendor",
+						":vendor_id",
+						"mark-all-viewed"
+					],
+					"variable": [
+						{
+							"key": "vendor_id",
+							"value": "1",
+							"description": "Vendor ID"
+						}
+					]
+				},
+				"description": "Mark all active stories for a vendor as viewed by the authenticated user. Returns:\n- marked_count (number of stories marked)"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "your_sanctum_token_here",
+			"type": "string"
+		}
+	]
+}

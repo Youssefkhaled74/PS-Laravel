@@ -19,3 +19,4 @@ require __DIR__ . '/api/user_otp.php';
 require __DIR__ . '/api/user_password.php';
 require __DIR__ . '/api/user_profile.php';
 require __DIR__ . '/api/user_addresses.php';
+require __DIR__ . '/api/stories.php';

@@ -34,5 +34,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    public function storyViews(): HasMany
+    {
+        return $this->hasMany(VendorStoryView::class);
+    }
     
 }
