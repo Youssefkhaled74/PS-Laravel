@@ -311,4 +311,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-});
+  /* === Profile Card Copy Handler (appended) === */
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest && e.target.closest('.ps-copy-btn');
+    if (!btn) return;
+    const text = btn.getAttribute('data-copy') || '';
+    if (!text) return;
+    
+    const copyText = () => {
+      if (!navigator.clipboard) {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showPSToast('Copied!');
+        } catch (err) {
+          showPSToast('Copy failed');
+        }
+        ta.remove();
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => showPSToast('Copied!'), () => showPSToast('Copy failed'));
+    };
+
+    copyText();
+  });
+
+  const showPSToast = (text = 'Copied') => {
+    let container = document.getElementById('ps-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'ps-toast-container';
+      container.style.cssText = 'position:fixed;z-index:99999;right:1rem;bottom:1rem;pointer-events:none;';
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'ps-toast';
+    toast.textContent = text;
+    toast.style.cssText = 'background:var(--panel);color:var(--text);border:1px solid var(--card-soft-border);padding:.6rem .9rem;margin-top:.5rem;border-radius:10px;box-shadow:var(--shadow-soft);pointer-events:auto;font-weight:600;';
+    
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = 'opacity .25s ease, transform .25s ease';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(6px)';
+    }, 1600);
+    setTimeout(() => toast.remove(), 2000);
+  };
+

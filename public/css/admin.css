@@ -676,3 +676,39 @@ select.input{appearance:none;background-image:linear-gradient(45deg,transparent 
 
 /* End address list styles */
 
+/* === Profile Card Component (appended) === */
+.ps-profile-card{margin-bottom:1.5rem}
+.ps-profile-header{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--divider-bg)}
+.ps-avatar-wrapper{flex-shrink:0}
+.ps-avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--card-soft-border);box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.ps-avatar-initials{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;text-transform:uppercase}
+.ps-profile-title{flex:1;min-width:0}
+.ps-profile-title .h1{margin-bottom:.35rem;font-size:1.5rem}
+.ps-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+.ps-badge{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid var(--card-soft-border);background:var(--overlay-2);color:var(--muted)}
+.ps-badge-success{background:rgba(34,197,94,.08);color:var(--success);border-color:rgba(34,197,94,.15)}
+.ps-badge-muted{background:var(--overlay-2);color:var(--muted);border-color:var(--card-soft-border)}
+.ps-badge-verified{background:rgba(59,130,246,.08);color:#3b82f6;border-color:rgba(59,130,246,.15)}
+.ps-profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}
+@media(max-width:720px){.ps-profile-grid{grid-template-columns:1fr}}
+.ps-kv{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:start;padding:.75rem;border-radius:10px;background:var(--overlay-1);border:1px solid var(--card-soft-border)}
+.ps-kv-icon{color:var(--gold);display:flex;align-items:center;padding-top:.15rem}
+.ps-kv-content{min-width:0}
+.ps-kv-label{font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:.2rem}
+.ps-kv-value{font-size:.95rem;color:var(--text);font-weight:600;word-break:break-word}
+.ps-link{color:var(--gold);text-decoration:none;transition:opacity .15s ease}
+.ps-link:hover{opacity:.85;text-decoration:underline}
+.ps-copy-btn{opacity:0;transition:opacity .15s ease}
+.ps-kv:hover .ps-copy-btn{opacity:1}
+.ps-copy-btn svg{vertical-align:middle}
+.ps-actions{display:flex;gap:.6rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--divider-bg);flex-wrap:wrap}
+[dir="rtl"] .ps-actions{flex-direction:row-reverse}
+[dir="rtl"] .ps-profile-header{flex-direction:row-reverse}
+
+/* Light theme adjustments for better contrast */
+.theme-light .ps-kv{background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06)}
+.theme-light .ps-kv-value{color:rgba(0,0,0,.92)}
+.theme-light .ps-avatar{border-color:rgba(0,0,0,.08)}
+.theme-light .ps-badge{background:rgba(0,0,0,.04);color:rgba(0,0,0,.70)}
+
+/* End profile card styles */
