@@ -47,6 +47,19 @@ return [
     'vendor.auth.logged_out' => 'تم تسجيل الخروج بنجاح.',
     'vendor.auth.logout_failed' => 'فشل تسجيل الخروج.',
 
+    // vendor otp
+    'vendor.otp.sent' => 'تم إرسال رمز التحقق إلى هاتفك بنجاح.',
+    'vendor.otp.resent' => 'تم إعادة إرسال رمز التحقق بنجاح.',
+    'vendor.otp.verified' => 'تم التحقق من رقم الهاتف بنجاح.',
+    'vendor.otp.invalid' => 'رمز التحقق غير صحيح. يرجى المحاولة مرة أخرى.',
+    'vendor.otp.expired' => 'انتهت صلاحية رمز التحقق. يرجى طلب رمز جديد.',
+    'vendor.otp.wait_before_resend' => 'يرجى الانتظار قبل طلب رمز جديد.',
+    'vendor.otp.too_many_requests' => 'عدد كبير من الطلبات. يرجى المحاولة لاحقاً.',
+    'vendor.otp.locked' => 'تم قفل الحساب مؤقتاً بسبب المحاولات الفاشلة المتكررة. يرجى المحاولة لاحقاً.',
+    'vendor.otp.max_attempts' => 'تم تجاوز الحد الأقصى لمحاولات التحقق. تم قفل الحساب مؤقتاً.',
+    'vendor.otp.not_found' => 'لم يتم العثور على رمز التحقق. يرجى طلب رمز جديد.',
+    'vendor.otp.error' => 'حدث خطأ. يرجى المحاولة مرة أخرى.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
@@ -60,4 +73,6 @@ return [
     'validation.password_confirmed' => 'تأكيد كلمة المرور غير مطابق.',
     'validation.avatar_image' => 'الصورة الشخصية يجب أن تكون صورة.',
     'validation.avatar_max' => 'حجم الصورة الشخصية يجب ألا يتجاوز 2 ميجابايت.',
+    'validation.otp_required' => 'رمز التحقق مطلوب.',
+    'validation.otp_invalid_length' => 'رمز التحقق يجب أن يكون 6 أرقام.',
 ];

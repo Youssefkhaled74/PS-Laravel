@@ -2,7 +2,7 @@
   "info": {
     "name": "PS Vendor Auth API",
     "_postman_id": "vendor-auth-collection-001",
-    "description": "Vendor Authentication API for PS Laravel Project\n\nIncludes:\n- Register Vendor\n- Login Vendor\n- Logout Vendor",
+    "description": "Vendor Authentication API for PS Laravel Project\n\nIncludes:\n- Register Vendor\n- Login Vendor\n- Logout Vendor\n- OTP Verification (Send, Verify, Resend)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -197,6 +197,257 @@
               "path": ["api", "v1", "vendor", "auth", "logout"]
             },
             "description": "Logout vendor and revoke current access token.\n\nRequires:\n- Authorization header with Bearer token"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vendor OTP",
+      "item": [
+        {
+          "name": "Send OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "send"]
+            },
+            "description": "Send OTP code to vendor phone.\n\nRequired:\n- phone (must exist in vendors table)\n\nReturns:\n- resend_in_seconds (30)\n- expires_in_seconds (300)\n- otp (only if OTP_DEBUG=true in .env)\n\nCheck Laravel logs for OTP code in development."
+          },
+          "response": []
+        },
+        {
+          "name": "Send OTP (Arabic)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "ar",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "send"]
+            },
+            "description": "Send OTP with Arabic language response"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Save token automatically on successful verification",
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.success && jsonData.data.token) {",
+                  "        pm.environment.set(\"vendor_token\", jsonData.data.token);",
+                  "        console.log(\"Token saved: \" + jsonData.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\",\n    \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "verify"]
+            },
+            "description": "Verify OTP code.\n\nRequired:\n- phone\n- otp (6 digits)\n\nReturns:\n- token (Sanctum token)\n- vendor (profile with phone_verified_at)\n\nRules:\n- Max 5 attempts\n- After 5 failed attempts: locked for 10 minutes\n- OTP expires after 5 minutes"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP (Arabic)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Save token automatically on successful verification",
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.success && jsonData.data.token) {",
+                  "        pm.environment.set(\"vendor_token\", jsonData.data.token);",
+                  "        console.log(\"Token saved: \" + jsonData.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "ar",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\",\n    \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "verify"]
+            },
+            "description": "Verify OTP with Arabic language response"
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "resend"]
+            },
+            "description": "Resend OTP code.\n\nSame as Send OTP but semantically different endpoint.\n\nRules:\n- Must wait 30 seconds between resends\n- Max 5 sends per hour\n- Returns 429 if rate limited"
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP (Arabic)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "ar",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{vendor_phone}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/otp/resend",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "otp", "resend"]
+            },
+            "description": "Resend OTP with Arabic language response"
           },
           "response": []
         }

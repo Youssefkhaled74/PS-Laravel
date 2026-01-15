@@ -27,3 +27,7 @@ require __DIR__ . '/api/stories.php';
 Route::prefix('v1/vendor/auth')->group(function () {
     require __DIR__ . '/api/vendor/auth.php';
 });
+
+Route::prefix('v1/vendor/otp')->group(function () {
+    require __DIR__ . '/api/vendor/otp.php';
+});

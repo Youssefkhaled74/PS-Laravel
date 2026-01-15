@@ -52,6 +52,19 @@ return [
     'vendor.auth.logged_out' => 'Logged out successfully.',
     'vendor.auth.logout_failed' => 'Logout failed.',
 
+    // vendor otp
+    'vendor.otp.sent' => 'OTP sent successfully to your phone.',
+    'vendor.otp.resent' => 'OTP resent successfully.',
+    'vendor.otp.verified' => 'Phone verified successfully.',
+    'vendor.otp.invalid' => 'Invalid OTP code. Please try again.',
+    'vendor.otp.expired' => 'OTP code has expired. Please request a new one.',
+    'vendor.otp.wait_before_resend' => 'Please wait before requesting a new code.',
+    'vendor.otp.too_many_requests' => 'Too many OTP requests. Please try again later.',
+    'vendor.otp.locked' => 'Account temporarily locked due to too many failed attempts. Please try again later.',
+    'vendor.otp.max_attempts' => 'Maximum verification attempts exceeded. Account locked temporarily.',
+    'vendor.otp.not_found' => 'No OTP found. Please request a new code.',
+    'vendor.otp.error' => 'An error occurred. Please try again.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',
@@ -65,4 +78,6 @@ return [
     'validation.password_confirmed' => 'Password confirmation does not match.',
     'validation.avatar_image' => 'Avatar must be an image.',
     'validation.avatar_max' => 'Avatar size must not exceed 2MB.',
+    'validation.otp_required' => 'OTP code is required.',
+    'validation.otp_invalid_length' => 'OTP code must be 6 digits.',
 ];

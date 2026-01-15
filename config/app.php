@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | OTP Debug Mode
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, OTP codes will be included in API responses for testing.
+    | NEVER enable this in production!
+    |
+    */
+
+    'otp_debug' => env('OTP_DEBUG', false),
+
 ];
