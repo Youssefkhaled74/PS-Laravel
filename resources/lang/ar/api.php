@@ -38,4 +38,26 @@ return [
     'address_not_found' => 'العنوان غير موجود.',
     'forbidden' => 'ممنوع.',
     'logout_success' => 'تم تسجيل الخروج بنجاح.',
+
+    // vendor auth
+    'vendor.auth.register_success' => 'تم تسجيل التاجر بنجاح.',
+    'vendor.auth.register_failed' => 'فشل التسجيل. يرجى المحاولة مرة أخرى.',
+    'vendor.auth.login_success' => 'تم تسجيل الدخول بنجاح.',
+    'vendor.auth.invalid_credentials' => 'رقم الهاتف أو كلمة المرور غير صحيحة.',
+    'vendor.auth.logged_out' => 'تم تسجيل الخروج بنجاح.',
+    'vendor.auth.logout_failed' => 'فشل تسجيل الخروج.',
+
+    // validation
+    'validation.full_name_required' => 'الاسم الكامل مطلوب.',
+    'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
+    'validation.phone_required' => 'رقم الهاتف مطلوب.',
+    'validation.phone_unique' => 'رقم الهاتف موجود مسبقاً.',
+    'validation.phone_not_found' => 'رقم الهاتف غير موجود.',
+    'validation.email_invalid' => 'صيغة البريد الإلكتروني غير صحيحة.',
+    'validation.email_unique' => 'البريد الإلكتروني موجود مسبقاً.',
+    'validation.password_required' => 'كلمة المرور مطلوبة.',
+    'validation.password_min' => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
+    'validation.password_confirmed' => 'تأكيد كلمة المرور غير مطابق.',
+    'validation.avatar_image' => 'الصورة الشخصية يجب أن تكون صورة.',
+    'validation.avatar_max' => 'حجم الصورة الشخصية يجب ألا يتجاوز 2 ميجابايت.',
 ];

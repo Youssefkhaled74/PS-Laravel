@@ -1,0 +1,206 @@
+{
+  "info": {
+    "name": "PS Vendor Auth API",
+    "_postman_id": "vendor-auth-collection-001",
+    "description": "Vendor Authentication API for PS Laravel Project\n\nIncludes:\n- Register Vendor\n- Login Vendor\n- Logout Vendor",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Vendor Auth",
+      "item": [
+        {
+          "name": "Register Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "full_name",
+                  "value": "Ahmed Store",
+                  "type": "text",
+                  "description": "Full name (required, min:3)"
+                },
+                {
+                  "key": "phone",
+                  "value": "+966500000001",
+                  "type": "text",
+                  "description": "Phone (required, unique)"
+                },
+                {
+                  "key": "email",
+                  "value": "ahmed@example.com",
+                  "type": "text",
+                  "description": "Email (optional, unique)"
+                },
+                {
+                  "key": "second_phone",
+                  "value": "+966500000002",
+                  "type": "text",
+                  "description": "Second phone (optional)"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text",
+                  "description": "Password (required, min:8)"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "password123",
+                  "type": "text",
+                  "description": "Password confirmation (required)"
+                },
+                {
+                  "key": "bio",
+                  "value": "Best electronics store in Riyadh",
+                  "type": "text",
+                  "description": "Bio (optional, max:1000)"
+                },
+                {
+                  "key": "national_id",
+                  "value": "1234567890",
+                  "type": "text",
+                  "description": "National ID (optional)"
+                },
+                {
+                  "key": "national_address",
+                  "value": "Riyadh, Saudi Arabia",
+                  "type": "text",
+                  "description": "National address (optional)"
+                },
+                {
+                  "key": "lat",
+                  "value": "24.7136",
+                  "type": "text",
+                  "description": "Latitude (optional)"
+                },
+                {
+                  "key": "lng",
+                  "value": "46.6753",
+                  "type": "text",
+                  "description": "Longitude (optional)"
+                },
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "description": "Avatar image (optional, max:2MB)",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "auth", "register"]
+            },
+            "description": "Register a new vendor account.\n\nRequired fields:\n- full_name\n- phone (unique)\n- password\n- password_confirmation\n\nOptional fields:\n- email (unique)\n- second_phone\n- avatar (image file)\n- bio\n- national_id\n- national_address\n- lat, lng"
+          },
+          "response": []
+        },
+        {
+          "name": "Login Vendor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Save token automatically on successful login",
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.success && jsonData.data.token) {",
+                  "        pm.environment.set(\"vendor_token\", jsonData.data.token);",
+                  "        console.log(\"Token saved: \" + jsonData.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text",
+                "description": "Language: en or ar"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"+966500000001\",\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "auth", "login"]
+            },
+            "description": "Login vendor with phone and password.\n\nRequired fields:\n- phone\n- password\n\nReturns:\n- token (Sanctum personal access token)\n- vendor (profile data)"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout Vendor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{vendor_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Lang",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/vendor/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "vendor", "auth", "logout"]
+            },
+            "description": "Logout vendor and revoke current access token.\n\nRequires:\n- Authorization header with Bearer token"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

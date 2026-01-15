@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /**
  * NOTE:
  * - This file must contain ONLY ONE opening PHP tag.
@@ -20,3 +22,8 @@ require __DIR__ . '/api/user_password.php';
 require __DIR__ . '/api/user_profile.php';
 require __DIR__ . '/api/user_addresses.php';
 require __DIR__ . '/api/stories.php';
+
+// Vendor API routes
+Route::prefix('v1/vendor/auth')->group(function () {
+    require __DIR__ . '/api/vendor/auth.php';
+});

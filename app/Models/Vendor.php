@@ -5,18 +5,42 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vendor extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $fillable = [
-        'name','email','phone','whatsapp_phone','bio','avatar','location_text','national_id','password','status',
+        'full_name',
+        'name',
+        'email',
+        'phone',
+        'second_phone',
+        'whatsapp_phone',
+        'bio',
+        'avatar_path',
+        'avatar',
+        'location_text',
+        'national_address',
+        'national_id',
+        'lat',
+        'lng',
+        'password',
+        'status',
+        'phone_verified_at',
     ];
 
     protected $hidden = ['password'];
+
+    protected $casts = [
+        'phone_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime',
+        'lat' => 'decimal:8',
+        'lng' => 'decimal:8',
+    ];
 
     public function businessProfile(): HasOne
     {

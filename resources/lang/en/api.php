@@ -43,4 +43,26 @@ return [
     'address_not_found' => 'Address not found.',
     'forbidden' => 'Forbidden.',
     'logout_success' => 'Logged out successfully.',
+
+    // vendor auth
+    'vendor.auth.register_success' => 'Vendor registered successfully.',
+    'vendor.auth.register_failed' => 'Registration failed. Please try again.',
+    'vendor.auth.login_success' => 'Logged in successfully.',
+    'vendor.auth.invalid_credentials' => 'Invalid phone or password.',
+    'vendor.auth.logged_out' => 'Logged out successfully.',
+    'vendor.auth.logout_failed' => 'Logout failed.',
+
+    // validation
+    'validation.full_name_required' => 'Full name is required.',
+    'validation.full_name_min' => 'Full name must be at least 3 characters.',
+    'validation.phone_required' => 'Phone is required.',
+    'validation.phone_unique' => 'Phone already exists.',
+    'validation.phone_not_found' => 'Phone not found.',
+    'validation.email_invalid' => 'Invalid email format.',
+    'validation.email_unique' => 'Email already exists.',
+    'validation.password_required' => 'Password is required.',
+    'validation.password_min' => 'Password must be at least 8 characters.',
+    'validation.password_confirmed' => 'Password confirmation does not match.',
+    'validation.avatar_image' => 'Avatar must be an image.',
+    'validation.avatar_max' => 'Avatar size must not exceed 2MB.',
 ];
