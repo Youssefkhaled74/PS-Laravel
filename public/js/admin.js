@@ -30,9 +30,60 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.add('is-open');
     overlay?.classList.add('is-visible');
     document.body.classList.add('no-scroll');
-  };
+  });
 
-  const closeSidebar = () => {
+  /* === Address list helpers (copy + toast) === */
+  (function(){
+    const copyHandler = (e) => {
+      const btn = e.target.closest && e.target.closest('.js-copy-map');
+      if (!btn) return;
+      const url = btn.getAttribute('data-map-url') || '';
+      if (!url) return showToast('No location to copy');
+      if (!navigator.clipboard) {
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = url; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); showToast('Copied'); } catch (err) { showToast('Copy failed'); }
+        ta.remove();
+        return;
+      }
+      navigator.clipboard.writeText(url).then(() => showToast('Copied'), () => showToast('Copy failed'));
+    };
+
+    const showToast = (text = 'Copied') => {
+      let container = document.getElementById('admin-toast-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'admin-toast-container';
+        container.style.position = 'fixed';
+        container.style.zIndex = 99999;
+        container.style.right = '1rem';
+        container.style.bottom = '1rem';
+        container.style.pointerEvents = 'none';
+        document.body.appendChild(container);
+      }
+
+      const el = document.createElement('div');
+      el.className = 'admin-toast-card';
+      el.textContent = text;
+      el.style.background = 'var(--panel)';
+      el.style.color = 'var(--text)';
+      el.style.border = '1px solid var(--card-soft-border)';
+      el.style.padding = '.6rem .9rem';
+      el.style.marginTop = '.5rem';
+      el.style.borderRadius = '10px';
+      el.style.boxShadow = 'var(--shadow-soft)';
+      el.style.pointerEvents = 'auto';
+
+      container.appendChild(el);
+      setTimeout(() => { el.style.transition = 'opacity .25s ease, transform .25s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; }, 1600);
+      setTimeout(() => el.remove(), 2000);
+    };
+
+    document.body.addEventListener('click', copyHandler);
+  })();
+
+  ```
     if (!sidebar) return;
     sidebar.classList.remove('is-open');
     overlay?.classList.remove('is-visible');

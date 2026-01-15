@@ -20,22 +20,10 @@
         <div class="p"><strong>{{ __('admin.users.phone') ?? 'Phone' }}:</strong> {{ ($user->country_code ?? '') . ($user->phone ?? '') }}</div>
         <div class="p"><strong>{{ __('admin.users.joined') ?? 'Joined' }}:</strong> {{ $user->created_at->format('Y-m-d H:i') }}</div>
       </div>
+    </div>
 
-      <div class="card">
-        <h3 class="h3">{{ __('admin.users.addresses') ?? 'Addresses' }}</h3>
-        @if($user->addresses->count())
-          @foreach($user->addresses as $addr)
-            <div style="padding:0.75rem;border-bottom:1px solid var(--muted)">
-              <div><strong>{{ $addr->label ?? __('admin.users.address') ?? 'Address' }}</strong> @if($addr->is_default) <span class="badge-active small">{{ __('admin.default') ?? 'Default' }}</span> @endif</div>
-              <div class="small p">{{ $addr->city }}, {{ $addr->country }}</div>
-              <div class="p">{{ $addr->street }} {{ $addr->building_no ? '#'.$addr->building_no : '' }} {{ $addr->apartment_no ? ' Apt '.$addr->apartment_no : '' }}</div>
-              <div class="small p">{{ $addr->phone }}</div>
-            </div>
-          @endforeach
-        @else
-          <div class="p">{{ __('admin.users.no_addresses') ?? 'No addresses available' }}</div>
-        @endif
-      </div>
+    <div class="mt-6">
+      <x-admin.address-list :addresses="$user->addresses" />
     </div>
   </div>
 @endsection
