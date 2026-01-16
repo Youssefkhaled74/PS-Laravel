@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Vendor extends Authenticatable
 {
@@ -31,6 +32,11 @@ class Vendor extends Authenticatable
         'password',
         'status',
         'phone_verified_at',
+        'onboarding_step',
+        'rejection_reason',
+        'otp_last_sent_at',
+        'otp_locked_until',
+        'otp_attempts',
     ];
 
     protected $hidden = ['password'];
@@ -38,6 +44,8 @@ class Vendor extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
         'email_verified_at' => 'datetime',
+        'otp_last_sent_at' => 'datetime',
+        'otp_locked_until' => 'datetime',
         'lat' => 'decimal:8',
         'lng' => 'decimal:8',
     ];
@@ -57,9 +65,17 @@ class Vendor extends Authenticatable
         return $this->hasMany(VendorPackageAssignment::class, 'vendor_id');
     }
 
+    public function packageAssignments(): HasMany
+    {
+        return $this->vendorPackageAssignments();
+    }
+
     public function activePackageAssignment(): HasOne
     {
-        return $this->hasOne(VendorPackageAssignment::class, 'vendor_id')->where('status', 'active');
+        return $this->hasOne(VendorPackageAssignment::class, 'vendor_id')
+            ->where('status', 'active')
+            ->orWhere('status', 'pending')
+            ->latest();
     }
 
     public function paymentSelections(): HasMany
@@ -77,5 +93,25 @@ class Vendor extends Authenticatable
         return $this->hasMany(VendorStory::class, 'vendor_id')
             ->active()
             ->ordered();
+    }
+
+    public function brands(): BelongsToMany
+    {
+        return $this->belongsToMany(Brand::class, 'brand_vendor');
+    }
+
+    public function otps(): HasMany
+    {
+        return $this->hasMany(VendorOtp::class, 'vendor_id');
+    }
+
+    public function paymentAttempts(): HasMany
+    {
+        return $this->hasMany(VendorPaymentAttempt::class, 'vendor_id');
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->vendorPackageAssignments();
     }
 }

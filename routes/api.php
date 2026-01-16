@@ -24,10 +24,32 @@ require __DIR__ . '/api/user_addresses.php';
 require __DIR__ . '/api/stories.php';
 
 // Vendor API routes
-Route::prefix('v1/vendor/auth')->group(function () {
-    require __DIR__ . '/api/vendor/auth.php';
-});
-
-Route::prefix('v1/vendor/otp')->group(function () {
-    require __DIR__ . '/api/vendor/otp.php';
+Route::prefix('v1/vendor')->group(function () {
+    // Auth routes
+    Route::prefix('auth')->group(function () {
+        require __DIR__ . '/api/vendor/auth.php';
+    });
+    
+    // OTP routes
+    Route::prefix('otp')->group(function () {
+        require __DIR__ . '/api/vendor/otp.php';
+    });
+    
+    // Onboarding routes
+    Route::prefix('onboarding')->group(function () {
+        require __DIR__ . '/api/vendor/onboarding.php';
+    });
+    
+    // Packages routes
+    Route::prefix('packages')->group(function () {
+        require __DIR__ . '/api/vendor/packages.php';
+    });
+    
+    // Payment routes
+    Route::prefix('payment')->group(function () {
+        require __DIR__ . '/api/vendor/payment.php';
+    });
+    
+    // Profile routes
+    require __DIR__ . '/api/vendor/me.php';
 });

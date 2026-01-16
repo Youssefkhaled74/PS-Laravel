@@ -33,6 +33,8 @@ class VendorAuthService
             // Prepare vendor data
             $vendorData = [
                 'full_name' => $data['full_name'],
+                // `name` column is required in DB; use provided `name` or fallback to `full_name`
+                'name' => $data['name'] ?? $data['full_name'],
                 'phone' => $data['phone'],
                 'password' => Hash::make($data['password']),
                 'status' => 'pending', // Default status

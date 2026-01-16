@@ -65,6 +65,13 @@ return [
     'vendor.otp.not_found' => 'No OTP found. Please request a new code.',
     'vendor.otp.error' => 'An error occurred. Please try again.',
 
+    // vendor onboarding
+    'vendor.onboarding.commercial_saved' => 'Commercial data saved successfully.',
+    'vendor.onboarding.subscription_selected' => 'Subscription package selected successfully.',
+    'vendor.onboarding.payment_confirmed' => 'Payment confirmed successfully.',
+    'vendor.onboarding.payment_failed' => 'Payment failed. Please try again.',
+    'vendor.onboarding.payment_pending' => 'Payment is pending confirmation.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',

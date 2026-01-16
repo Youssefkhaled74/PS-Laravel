@@ -11,7 +11,7 @@ class VendorBusinessProfile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vendor_id','commercial_name','activity_id','id_number','commercial_register_number','freelance_doc_number','bank_id','bank_account_number','status',
+        'vendor_id','commercial_name','activity_id','id_number','commercial_register_number','freelance_doc_number','bank_id','bank_account_number','status','id_card_file','commercial_file','accept_terms',
     ];
 
     public function vendor(): BelongsTo

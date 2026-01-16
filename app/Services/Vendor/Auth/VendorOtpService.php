@@ -188,6 +188,11 @@ class VendorOtpService
      */
     protected function generateOtp(): string
     {
+        // If otp_debug is enabled return a fixed OTP for development/testing
+        if (config('app.otp_debug', false)) {
+            return str_pad('111111', self::OTP_LENGTH, '0', STR_PAD_LEFT);
+        }
+
         return str_pad((string) random_int(0, 999999), self::OTP_LENGTH, '0', STR_PAD_LEFT);
     }
 

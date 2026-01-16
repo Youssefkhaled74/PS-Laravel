@@ -40,6 +40,14 @@ class VendorRegisterController extends Controller
                 201
             );
         } catch (\Exception $e) {
+            // Log full exception for debugging
+            \Log::error($e);
+
+            // In local environment return the exception message to help debugging
+            if (app()->environment('local')) {
+                return $this->error($e->getMessage(), null, 500);
+            }
+
             return $this->error('vendor.auth.register_failed', null, 500);
         }
     }

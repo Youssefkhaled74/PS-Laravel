@@ -10,11 +10,12 @@ class VendorPackage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'key', 'name', 'monthly_price', 'yearly_price', 'currency', 'sort_order', 'status',
+        'key', 'name', 'monthly_price', 'yearly_price', 'currency', 'sort_order', 'status', 'features',
     ];
 
     protected $casts = [
         'name' => 'array',
+        'features' => 'array',
         'monthly_price' => 'integer',
         'yearly_price' => 'integer',
     ];
@@ -26,5 +27,14 @@ class VendorPackage extends Model
     {
         $locale = $locale ?: app()->getLocale();
         return $this->name[$locale] ?? ($this->name['en'] ?? '');
+    }
+
+    public function getFeatures(string $locale = null): array
+    {
+        if (!$this->features) {
+            return [];
+        }
+        $locale = $locale ?: app()->getLocale();
+        return $this->features[$locale] ?? ($this->features['en'] ?? []);
     }
 }

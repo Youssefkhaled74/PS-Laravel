@@ -60,6 +60,13 @@ return [
     'vendor.otp.not_found' => 'لم يتم العثور على رمز التحقق. يرجى طلب رمز جديد.',
     'vendor.otp.error' => 'حدث خطأ. يرجى المحاولة مرة أخرى.',
 
+    // vendor onboarding
+    'vendor.onboarding.commercial_saved' => 'تم حفظ البيانات التجارية بنجاح.',
+    'vendor.onboarding.subscription_selected' => 'تم اختيار باقة الاشتراك بنجاح.',
+    'vendor.onboarding.payment_confirmed' => 'تم تأكيد الدفع بنجاح.',
+    'vendor.onboarding.payment_failed' => 'فشل الدفع. يرجى المحاولة مرة أخرى.',
+    'vendor.onboarding.payment_pending' => 'الدفع في انتظار التأكيد.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
