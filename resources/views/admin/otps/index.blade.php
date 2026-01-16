@@ -69,7 +69,7 @@
                   @endif
                 </td>
                 <td>{{ ($o->country_code ? $o->country_code : '') . $o->phone }}</td>
-                <td>{{ $o->purpose }}</td>
+                <td>{{ $o->purpose ?? '-' }}</td>
                 <td>{{ $o->channel ?? 'sms' }}</td>
                 <td><span class="mono">{{ __('admin.otps.masked') }}</span></td>
                 <td>

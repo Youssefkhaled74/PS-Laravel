@@ -55,6 +55,8 @@ class OtpService
             $row->source = 'user';
             $row->user = User::where('country_code', $row->country_code)->where('phone', $row->phone)->first();
             $row->vendor = Vendor::where('phone', $row->phone)->first();
+            // ensure purpose property exists
+            $row->purpose = $row->purpose ?? null;
             $row->status = $this->computeStatus($row);
             // include cached plain OTP if debug
             if (config('app.otp_debug', false)) {
@@ -82,6 +84,7 @@ class OtpService
             $row->country_code = $row->country_code ?? null;
             $row->user = null;
             $row->vendor = Vendor::find($row->vendor_id);
+            $row->purpose = $row->purpose ?? null;
             // map consumed_at -> verified_at for status computation
             $row->verified_at = $row->consumed_at ?? null;
             $row->revoked_at = $row->revoked_at ?? null;

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Vendor\Auth\RegisterVendorRequest;
 use App\Http\Resources\Api\V1\Vendor\VendorResource;
 use App\Services\Vendor\Auth\VendorAuthService;
 use App\Traits\ApiResponseTrait;
+use Facades\Log;
 
 class VendorRegisterController extends Controller
 {
@@ -41,7 +42,7 @@ class VendorRegisterController extends Controller
             );
         } catch (\Exception $e) {
             // Log full exception for debugging
-            \Log::error($e);
+            Log::error($e);
 
             // In local environment return the exception message to help debugging
             if (app()->environment('local')) {
