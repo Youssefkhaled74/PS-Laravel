@@ -131,6 +131,7 @@ class OtpService
         $row = DB::table('vendor_otps')->where('id', $id)->first();
         if (! $row) return null;
         $row->vendor = Vendor::find($row->vendor_id);
+        $row->purpose = $row->purpose ?? null;
         // map consumed_at to verified_at for status logic
         $row->verified_at = $row->consumed_at ?? null;
         $row->revoked_at = $row->revoked_at ?? null;

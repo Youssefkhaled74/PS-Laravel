@@ -16,7 +16,7 @@
       <h3 class="h3">{{ __('admin.otps.details') ?? 'OTP Details' }}</h3>
       <div class="divider"></div>
       <div class="p"><strong>{{ __('admin.otps.contact') }}:</strong> {{ ($otp->country_code ?? '') . $otp->phone }}</div>
-      <div class="p"><strong>{{ __('admin.otps.purpose') }}:</strong> {{ $otp->purpose }}</div>
+      <div class="p"><strong>{{ __('admin.otps.purpose') }}:</strong> {{ $otp->purpose ?? '-' }}</div>
       @if(!empty($otp->plain_otp))
         <div class="p"><strong>{{ __('admin.otps.plain_otp') ?? 'OTP' }}:</strong> <span class="mono">{{ $otp->plain_otp }}</span></div>
       @endif
@@ -25,6 +25,11 @@
       @elseif(!empty($otp->user))
         <div class="p"><strong>{{ __('admin.otps.user') ?? 'User' }}:</strong> {{ $otp->user->full_name }} <div class="small p">#{{ $otp->user->id }}</div></div>
       @endif
+
+      <div class="p"><strong>{{ __('admin.otps.used_at') ?? 'Used At' }}:</strong>
+        {{ isset($otp->verified_at) ? \Carbon\Carbon::parse($otp->verified_at)->format('Y-m-d H:i') : (isset($otp->consumed_at) ? \Carbon\Carbon::parse($otp->consumed_at)->format('Y-m-d H:i') : '-') }}</div>
+      <div class="p"><strong>{{ __('admin.otps.revoked_at') ?? 'Revoked At' }}:</strong>
+        {{ isset($otp->revoked_at) ? \Carbon\Carbon::parse($otp->revoked_at)->format('Y-m-d H:i') : '-' }}</div>
       <div class="p"><strong>{{ __('admin.otps.masked') }}:</strong> <span class="mono">{{ __('admin.otps.masked') }}</span></div>
       <div class="p"><strong>{{ __('admin.otps.status') }}:</strong> {{ ucfirst($otp->status) }}</div>
       <div class="p"><strong>{{ __('admin.otps.expires_at') }}:</strong> {{ \Carbon\Carbon::parse($otp->expires_at)->format('Y-m-d H:i') }}</div>
