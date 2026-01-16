@@ -17,6 +17,14 @@
       <div class="divider"></div>
       <div class="p"><strong>{{ __('admin.otps.contact') }}:</strong> {{ ($otp->country_code ?? '') . $otp->phone }}</div>
       <div class="p"><strong>{{ __('admin.otps.purpose') }}:</strong> {{ $otp->purpose }}</div>
+      @if(!empty($otp->plain_otp))
+        <div class="p"><strong>{{ __('admin.otps.plain_otp') ?? 'OTP' }}:</strong> <span class="mono">{{ $otp->plain_otp }}</span></div>
+      @endif
+      @if(!empty($otp->vendor))
+        <div class="p"><strong>{{ __('admin.otps.vendor') ?? 'Vendor' }}:</strong> {{ $otp->vendor->full_name ?? $otp->vendor->name }} <div class="small p">#{{ $otp->vendor->id }}</div></div>
+      @elseif(!empty($otp->user))
+        <div class="p"><strong>{{ __('admin.otps.user') ?? 'User' }}:</strong> {{ $otp->user->full_name }} <div class="small p">#{{ $otp->user->id }}</div></div>
+      @endif
       <div class="p"><strong>{{ __('admin.otps.masked') }}:</strong> <span class="mono">{{ __('admin.otps.masked') }}</span></div>
       <div class="p"><strong>{{ __('admin.otps.status') }}:</strong> {{ ucfirst($otp->status) }}</div>
       <div class="p"><strong>{{ __('admin.otps.expires_at') }}:</strong> {{ \Carbon\Carbon::parse($otp->expires_at)->format('Y-m-d H:i') }}</div>

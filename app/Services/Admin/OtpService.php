@@ -4,7 +4,9 @@ namespace App\Services\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use App\Models\User;
+use App\Models\Vendor;
 use App\Services\Auth\OtpService as AuthOtpService;
 
 class OtpService
@@ -48,7 +50,61 @@ class OtpService
             });
         }
 
-        return $query->paginate($perPage);
+        // Fetch user otps
+        $userItems = $query->get()->map(function ($row) {
+            $row->source = 'user';
+            $row->user = User::where('country_code', $row->country_code)->where('phone', $row->phone)->first();
+            $row->vendor = Vendor::where('phone', $row->phone)->first();
+            $row->status = $this->computeStatus($row);
+            // include cached plain OTP if debug
+            if (config('app.otp_debug', false)) {
+                $row->plain_otp = Cache::get('otp_plain_' . $row->id);
+            }
+            return $row;
+        });
+
+        // Fetch vendor otps and map to common structure
+        $vQuery = DB::table('vendor_otps')->orderByDesc('id');
+        if (!empty($filters['search'])) {
+            $s = $filters['search'];
+            $vQuery->where(function ($q) use ($s) {
+                $q->where('phone', 'like', "%{$s}%")
+                  ->orWhere('purpose', 'like', "%{$s}%");
+            });
+        }
+        if (!empty($filters['purpose'])) {
+            $vQuery->where('purpose', $filters['purpose']);
+        }
+
+        $vendorItems = $vQuery->get()->map(function ($row) {
+            // normalize fields to match otps table shape
+            $row->source = 'vendor';
+            $row->country_code = $row->country_code ?? null;
+            $row->user = null;
+            $row->vendor = Vendor::find($row->vendor_id);
+            // map consumed_at -> verified_at for status computation
+            $row->verified_at = $row->consumed_at ?? null;
+            $row->revoked_at = $row->revoked_at ?? null;
+            $row->status = $this->computeStatus($row);
+            if (config('app.otp_debug', false)) {
+                $row->plain_otp = Cache::get('otp_plain_' . $row->id);
+            }
+            return $row;
+        });
+
+        // Merge and sort by created_at desc
+        $all = $userItems->concat($vendorItems)->sortByDesc(fn($r) => $r->created_at)->values();
+
+        // Manual pagination
+        $page = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
+        $total = $all->count();
+        $results = $all->slice(($page - 1) * $perPage, $perPage)->values();
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator($results, $total, $perPage, $page, [
+            'path' => \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPath(),
+            'query' => request()->query(),
+        ]);
+
+        return $paginator;
     }
 
     public function getOtp(int $id)
@@ -59,6 +115,26 @@ class OtpService
         $user = User::where('country_code', $row->country_code)->where('phone', $row->phone)->first();
         $row->user = $user;
         $row->status = $this->computeStatus($row);
+        // expose plain OTP in debug mode if available in cache
+        if (config('app.otp_debug', false)) {
+            $plain = Cache::get('otp_plain_' . $row->id);
+            $row->plain_otp = $plain;
+        }
+        return $row;
+    }
+
+    public function getVendorOtp(int $id)
+    {
+        $row = DB::table('vendor_otps')->where('id', $id)->first();
+        if (! $row) return null;
+        $row->vendor = Vendor::find($row->vendor_id);
+        // map consumed_at to verified_at for status logic
+        $row->verified_at = $row->consumed_at ?? null;
+        $row->revoked_at = $row->revoked_at ?? null;
+        $row->status = $this->computeStatus($row);
+        if (config('app.otp_debug', false)) {
+            $row->plain_otp = Cache::get('otp_plain_' . $row->id);
+        }
         return $row;
     }
 

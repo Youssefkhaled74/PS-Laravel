@@ -22,7 +22,12 @@ class OtpController extends Controller
 
     public function show($id)
     {
-        $otp = $this->service->getOtp((int)$id);
+        $source = request()->get('source', 'user');
+        if ($source === 'vendor') {
+            $otp = $this->service->getVendorOtp((int)$id);
+        } else {
+            $otp = $this->service->getOtp((int)$id);
+        }
         if (! $otp) {
             return redirect()->route('admin.otps.index')->with('error', __('admin.otps.not_found'));
         }

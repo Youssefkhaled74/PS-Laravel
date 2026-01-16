@@ -60,7 +60,9 @@
               <tr>
                 <td>{{ $o->id }}</td>
                 <td>
-                  @if(!empty($o->user))
+                  @if(!empty($o->vendor))
+                    {{ $o->vendor->full_name ?? $o->vendor->name }} <div class="small p">#{{ $o->vendor->id }} (Vendor)</div>
+                  @elseif(!empty($o->user))
                     {{ $o->user->full_name }} <div class="small p">#{{ $o->user->id }}</div>
                   @else
                     <div class="small p">-</div>

@@ -7,6 +7,7 @@ use App\Models\VendorOtp;
 use App\Services\Sms\SmsService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class VendorOtpService
@@ -73,6 +74,11 @@ class VendorOtpService
                 'resend_available_at' => now()->addSeconds(self::RESEND_COOLDOWN_SECONDS),
                 'attempts' => 0,
             ]);
+
+            // Store plain OTP in cache for debugging (short-lived) when debug enabled
+            if (config('app.otp_debug', false)) {
+                Cache::put('otp_plain_' . $vendorOtp->id, $otp, now()->addMinutes(self::OTP_EXPIRY_MINUTES));
+            }
 
             // Update vendor
             $vendor->update([
