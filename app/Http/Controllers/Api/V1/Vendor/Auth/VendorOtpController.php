@@ -29,7 +29,7 @@ class VendorOtpController extends Controller
     public function send(SendVendorOtpRequest $request)
     {
         try {
-            $result = $this->otpService->send($request->phone);
+            $result = $this->otpService->sendOtp($request->phone, $request->purpose ?? 'VENDOR_REGISTER_VERIFY');
 
             return $this->success(
                 $result,
@@ -51,7 +51,7 @@ class VendorOtpController extends Controller
     public function verify(VerifyVendorOtpRequest $request)
     {
         try {
-            $result = $this->otpService->verify($request->phone, $request->otp);
+            $result = $this->otpService->verifyOtp($request->phone, $request->otp, $request->purpose ?? 'VENDOR_REGISTER_VERIFY');
 
             return $this->success(
                 [
@@ -76,7 +76,7 @@ class VendorOtpController extends Controller
     public function resend(SendVendorOtpRequest $request)
     {
         try {
-            $result = $this->otpService->resend($request->phone);
+            $result = $this->otpService->resendOtp($request->phone);
 
             return $this->success(
                 $result,

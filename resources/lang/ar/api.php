@@ -67,6 +67,15 @@ return [
     'vendor.onboarding.payment_failed' => 'فشل الدفع. يرجى المحاولة مرة أخرى.',
     'vendor.onboarding.payment_pending' => 'الدفع في انتظار التأكيد.',
 
+    // vendor items
+    'vendor.items.lookups' => 'بيانات القوائم لمنتجات البائع.',
+    'vendor.items.created' => 'تم إنشاء المنتج بنجاح.',
+    'vendor.items.updated' => 'تم تحديث المنتج بنجاح.',
+    'vendor.items.deleted' => 'تم حذف المنتج بنجاح.',
+
+    'vendor.errors.not_approved' => 'التاجر غير معتمد لتنفيذ هذا الإجراء.',
+    'vendor.errors.not_owner' => 'أنت لست مالك هذا المنتج.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',

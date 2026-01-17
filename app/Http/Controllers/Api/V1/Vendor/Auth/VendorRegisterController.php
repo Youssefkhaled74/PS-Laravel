@@ -7,7 +7,7 @@ use App\Http\Requests\Api\V1\Vendor\Auth\RegisterVendorRequest;
 use App\Http\Resources\Api\V1\Vendor\VendorResource;
 use App\Services\Vendor\Auth\VendorAuthService;
 use App\Traits\ApiResponseTrait;
-use Facades\Log;
+use Illuminate\Support\Facades\Log;
 
 class VendorRegisterController extends Controller
 {

@@ -161,14 +161,33 @@ class VendorOtpService
         DB::table('vendor_otps')->where('id', $vendorOtp->id)->update(['reset_token_hash' => Hash::make($token), 'consumed_at' => now()]);
 
         return $token;
-
-            return $response;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
     }
 
+    /**
+     * Backwards-compatible wrapper: sendOtp
+     */
+    public function sendOtp(string $phone, string $purpose = 'VENDOR_REGISTER_VERIFY'): array
+    {
+        return $this->send($phone, $purpose);
+    }
+
+    /**
+     * Backwards-compatible wrapper: verifyOtp
+     */
+    public function verifyOtp(string $phone, string $code, string $purpose = 'VENDOR_REGISTER_VERIFY')
+    {
+        // currently verify() ignores purpose; keep compatibility by calling verify
+        return $this->verify($phone, $code);
+    }
+
+    /**
+     * Backwards-compatible wrapper: resendOtp
+     */
+    public function resendOtp(string $phone): array
+    {
+        return $this->resend($phone);
+    }
+    
     /**
      * Verify OTP code
      *

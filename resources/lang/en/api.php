@@ -72,6 +72,15 @@ return [
     'vendor.onboarding.payment_failed' => 'Payment failed. Please try again.',
     'vendor.onboarding.payment_pending' => 'Payment is pending confirmation.',
 
+    // vendor items
+    'vendor.items.lookups' => 'Lookup data for vendor items.',
+    'vendor.items.created' => 'Item created successfully.',
+    'vendor.items.updated' => 'Item updated successfully.',
+    'vendor.items.deleted' => 'Item deleted successfully.',
+
+    'vendor.errors.not_approved' => 'Vendor is not approved to perform this action.',
+    'vendor.errors.not_owner' => 'You are not the owner of this item.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',

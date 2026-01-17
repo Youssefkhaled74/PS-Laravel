@@ -52,4 +52,7 @@ Route::prefix('v1/vendor')->group(function () {
     
     // Profile routes
     require __DIR__ . '/api/vendor/me.php';
+    
+    // Items routes
+    require __DIR__ . '/api/vendor/items.php';
 });
