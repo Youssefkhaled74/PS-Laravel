@@ -99,6 +99,15 @@ return [
     'shipping.not_set' => 'بيانات الشحن غير مضبوطة لهذا التاجر.',
     'shipping.errors.invalid_currency' => 'عملة غير صالحة.',
 
+    // notifications
+    'notifications.fetched' => 'تم جلب الإشعارات بنجاح.',
+    'notifications.mark_read' => 'تم تعليم الإشعار كمقروء.',
+    'notifications.read_all' => 'تم تعليم جميع الإشعارات كمقروءة.',
+    'notifications.sections.today' => 'اليوم',
+    'notifications.sections.yesterday' => 'أمس',
+    'notifications.sections.earlier' => 'سابقًا',
+    'notifications.errors.not_found' => 'الإشعار غير موجود.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',

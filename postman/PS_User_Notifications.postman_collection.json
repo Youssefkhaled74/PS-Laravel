@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "PS - User Notifications",
+    "_postman_id": "ps-user-notifications-0001",
+    "description": "User-side notifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Notifications",
+      "item": [
+        {
+          "name": "Get Notifications (Grouped)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/notifications?per_page=20&only_unread=0", "host": ["{{base_url}}"], "path": ["api","v1","notifications"], "query": [ { "key": "per_page", "value": "20" }, { "key": "only_unread", "value": "0" } ] }
+          }
+        },
+        {
+          "name": "Mark One As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/notifications/{{notification_id}}/read", "host": ["{{base_url}}"], "path": ["api","v1","notifications","{{notification_id}}","read"] }
+          }
+        },
+        {
+          "name": "Mark All As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/notifications/read-all", "host": ["{{base_url}}"], "path": ["api","v1","notifications","read-all"] }
+          }
+        }
+      ]
+    }
+  ]
+}

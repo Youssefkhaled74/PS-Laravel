@@ -26,6 +26,7 @@ require __DIR__ . '/api/user/follows.php';
 // User v1 APIs
 Route::prefix('v1')->group(function () {
     require __DIR__ . '/api/user/cart.php';
+    require __DIR__ . '/api/user/notifications.php';
 });
 
 // Vendor API routes

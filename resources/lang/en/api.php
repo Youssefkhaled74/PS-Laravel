@@ -81,6 +81,14 @@ return [
     // vendor notifications
     'vendor.notifications.list_success' => 'Notifications fetched successfully.',
 
+    'notifications.fetched' => 'Notifications fetched successfully.',
+    'notifications.mark_read' => 'Notification marked as read.',
+    'notifications.read_all' => 'All notifications marked as read.',
+    'notifications.sections.today' => 'Today',
+    'notifications.sections.yesterday' => 'Yesterday',
+    'notifications.sections.earlier' => 'Earlier',
+    'notifications.errors.not_found' => 'Notification not found.',
+
     'vendor.errors.not_approved' => 'Vendor is not approved to perform this action.',
     'vendor.errors.not_owner' => 'You are not the owner of this item.',
 
