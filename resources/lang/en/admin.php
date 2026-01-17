@@ -307,6 +307,7 @@ return [
     ],
     
     'search' => 'Search',
+    'edit' => 'Edit',
     'view' => 'View',
     'back' => 'Back',
     'status' => 'Status',
