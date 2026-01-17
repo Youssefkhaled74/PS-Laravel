@@ -227,6 +227,14 @@
     {{-- Pagination --}}
     @if($stories->hasPages())
       <div class="mt-6" style="display:flex;justify-content:center">
+        <style>
+          /* Pagination overrides for admin theme to prevent oversized icons */
+          nav[role="navigation"] { display:inline-block; }
+          nav[role="navigation"] ul { display:flex; gap:8px; list-style:none; padding:0; margin:0; align-items:center; }
+          nav[role="navigation"] li { display:inline-block; }
+          nav[role="navigation"] a, nav[role="navigation"] span, .page-link { display:inline-flex !important; align-items:center; justify-content:center; padding:6px 10px !important; font-size:14px !important; height:auto !important; width:auto !important; border-radius:8px !important; }
+          nav[role="navigation"] svg { width:18px !important; height:18px !important; }
+        </style>
         {{ $stories->links() }}
       </div>
     @endif
