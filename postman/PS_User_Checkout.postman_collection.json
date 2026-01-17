@@ -1,0 +1,118 @@
+{
+  "info": {
+    "name": "PS - User Checkout",
+    "_postman_id": "ps-user-checkout-0001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Checkout",
+      "item": [
+        {
+          "name": "Cart - Add Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"item_id\": 1,\n  \"quantity\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/cart/items", "host": ["{{base_url}}"], "path": ["api","v1","cart","items"] }
+          }
+        },
+        {
+          "name": "Cart - Update Qty",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 3\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/cart/items/{{cart_item_id}}", "host": ["{{base_url}}"], "path": ["api","v1","cart","items","{{cart_item_id}}"] }
+          }
+        },
+        {
+          "name": "Cart - Remove Item",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/cart/items/{{cart_item_id}}", "host": ["{{base_url}}"], "path": ["api","v1","cart","items","{{cart_item_id}}"] }
+          }
+        },
+        {
+          "name": "Cart - Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/cart", "host": ["{{base_url}}"], "path": ["api","v1","cart"] }
+          }
+        },
+        {
+          "name": "Checkout - Address",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"full_name\": \"John Doe\",\n  \"phone\": \"0550000000\",\n  \"city\": \"Riyadh\",\n  \"address_line\": \"123 Main St\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/checkout/address", "host": ["{{base_url}}"], "path": ["api","v1","checkout","address"] }
+          }
+        },
+        {
+          "name": "Payment - Methods",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/payment/methods", "host": ["{{base_url}}"], "path": ["api","v1","payment","methods"] }
+          }
+        },
+        {
+          "name": "Checkout - Payment Select",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"payment_method_id\": 1\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/checkout/payment", "host": ["{{base_url}}"], "path": ["api","v1","checkout","payment"] }
+          }
+        },
+        {
+          "name": "Checkout - Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/checkout/summary", "host": ["{{base_url}}"], "path": ["api","v1","checkout","summary"] }
+          }
+        },
+        {
+          "name": "Checkout - Confirm",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"note\": \"Please deliver after 5pm\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/checkout/confirm", "host": ["{{base_url}}"], "path": ["api","v1","checkout","confirm"] }
+          }
+        }
+      ]
+    }
+  ]
+}
