@@ -132,4 +132,9 @@ class Vendor extends Authenticatable
     {
         return $this->followers()->count();
     }
+
+    public function shippingDetail(): HasOne
+    {
+        return $this->hasOne(\App\Models\VendorShippingDetail::class, 'vendor_id');
+    }
 }

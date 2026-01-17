@@ -1,0 +1,43 @@
+{
+  "info": {
+    "name": "PS - Vendor Shipping",
+    "_postman_id": "ps-vendor-shipping-0001",
+    "description": "Vendor-side shipping details API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Vendor - Shipping Details",
+      "item": [
+        {
+          "name": "Get Shipping Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/shipping-details", "host": ["{{base_url}}"], "path": ["api","v1","vendor","shipping-details"] }
+          }
+        },
+        {
+          "name": "Create/Update Shipping Details",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept-Language", "value": "{{lang}}" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"within_city_fee\": 10.00,\n  \"within_ksa_fee\": 15.50,\n  \"ksa_to_gcc_fee\": 40.00,\n  \"ksa_to_world_fee\": 100.00,\n  \"currency\": \"SAR\",\n  \"status\": \"active\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/shipping-details", "host": ["{{base_url}}"], "path": ["api","v1","vendor","shipping-details"] }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -101,6 +101,12 @@ return [
     'cart.errors.invalid_quantity' => 'Invalid quantity requested.',
     'cart.errors.out_of_stock' => 'Requested quantity not available.',
 
+    // shipping
+    'shipping.saved' => 'Shipping details saved successfully.',
+    'shipping.fetched' => 'Shipping details fetched successfully.',
+    'shipping.not_set' => 'Shipping details not set for this vendor.',
+    'shipping.errors.invalid_currency' => 'Invalid currency provided.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',
