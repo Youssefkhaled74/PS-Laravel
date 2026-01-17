@@ -1,0 +1,140 @@
+{
+  "info": {
+    "name": "PS - Stories (Vendor)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "My Stories",
+      "item": [
+        {
+          "name": "List My Stories (EN)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories?per_page=15", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories"], "query": [{"key":"per_page","value":"15"}] }
+          }
+        },
+        {
+          "name": "List My Stories (AR)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "ar" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories?per_page=15", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories"], "query": [{"key":"per_page","value":"15"}] }
+          }
+        },
+        {
+          "name": "Create Story (EN) - form-data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "New Story", "type": "text" },
+                { "key": "media_type", "value": "video", "type": "text" },
+                { "key": "media_file", "type": "file" },
+                { "key": "start_at", "value": "", "type": "text" },
+                { "key": "end_at", "value": "", "type": "text" },
+                { "key": "status", "value": "active", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories"] }
+          }
+        },
+        {
+          "name": "Create Story (AR) - form-data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "ar" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "ستوري جديد", "type": "text" },
+                { "key": "media_type", "value": "image", "type": "text" },
+                { "key": "media_file", "type": "file" },
+                { "key": "start_at", "value": "", "type": "text" },
+                { "key": "end_at", "value": "", "type": "text" },
+                { "key": "status", "value": "active", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories"] }
+          }
+        },
+        {
+          "name": "Update Story (EN) - form-data",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Updated Title", "type": "text" },
+                { "key": "media_type", "value": "image", "type": "text" },
+                { "key": "media_file", "type": "file" },
+                { "key": "status", "value": "active", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories/{{story_id}}", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories","{{story_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Story (EN)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories/{{story_id}}", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories","{{story_id}}"] }
+          }
+        },
+        {
+          "name": "Toggle Story Status (EN)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories/{{story_id}}/toggle", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories","{{story_id}}","toggle"] }
+          }
+        },
+        {
+          "name": "Story Analytics (EN)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/stories/{{story_id}}/analytics", "host": ["{{base_url}}"], "path": ["api","v1","vendor","stories","{{story_id}}","analytics"] }
+          }
+        }
+      ]
+    }
+  ]
+}

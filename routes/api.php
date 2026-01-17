@@ -60,4 +60,5 @@ Route::prefix('v1/vendor')->group(function () {
     // Notifications routes
     require __DIR__ . '/api/vendor/notifications.php';
     require __DIR__ . '/api/vendor/followers.php';
+    require __DIR__ . '/api/vendor/stories.php';
 });
