@@ -84,6 +84,15 @@ return [
     'vendor.errors.not_approved' => 'Vendor is not approved to perform this action.',
     'vendor.errors.not_owner' => 'You are not the owner of this item.',
 
+    // follow
+    'follow.vendor_followed' => 'Vendor followed successfully.',
+    'follow.vendor_unfollowed' => 'Vendor unfollowed successfully.',
+    'follow.vendor_follow_toggled' => 'Follow state updated.',
+    'follow.list_following' => 'Following list fetched successfully.',
+    'follow.list_followers' => 'Followers list fetched successfully.',
+    'follow.errors.vendor_not_found' => 'Vendor not found.',
+    'follow.errors.cannot_follow_self' => 'You cannot follow yourself.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',

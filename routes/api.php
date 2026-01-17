@@ -22,6 +22,7 @@ require __DIR__ . '/api/user_password.php';
 require __DIR__ . '/api/user_profile.php';
 require __DIR__ . '/api/user_addresses.php';
 require __DIR__ . '/api/stories.php';
+require __DIR__ . '/api/user/follows.php';
 
 // Vendor API routes
 Route::prefix('v1/vendor')->group(function () {
@@ -58,4 +59,5 @@ Route::prefix('v1/vendor')->group(function () {
 
     // Notifications routes
     require __DIR__ . '/api/vendor/notifications.php';
+    require __DIR__ . '/api/vendor/followers.php';
 });

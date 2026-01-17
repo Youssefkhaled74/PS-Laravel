@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -40,4 +41,15 @@ class User extends Authenticatable
         return $this->hasMany(VendorStoryView::class);
     }
     
+    public function followedVendors(): BelongsToMany
+    {
+        return $this->belongsToMany(Vendor::class, 'vendor_follows')
+            ->withTimestamps()
+            ->withPivot(['status']);
+    }
+
+    public function isFollowing($vendorId): bool
+    {
+        return $this->followedVendors()->where('vendor_id', $vendorId)->exists();
+    }
 }

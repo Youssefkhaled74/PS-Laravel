@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany as EloquentBelongsToMany;
 
 class Vendor extends Authenticatable
 {
@@ -118,5 +119,17 @@ class Vendor extends Authenticatable
     public function notifications(): HasMany
     {
         return $this->hasMany(VendorNotification::class, 'vendor_id');
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'vendor_follows')
+            ->withTimestamps()
+            ->withPivot(['status']);
+    }
+
+    public function followerCount(): int
+    {
+        return $this->followers()->count();
     }
 }

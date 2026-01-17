@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "PS_Follows",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User - Follows",
+      "item": [
+        {
+          "name": "Follow Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"vendor_id\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/user/follows", "host": ["{{base_url}}"], "path": ["api","v1","user","follows"] }
+          }
+        },
+        {
+          "name": "Unfollow Vendor",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/user/follows/2", "host": ["{{base_url}}"], "path": ["api","v1","user","follows","2"] }
+          }
+        },
+        {
+          "name": "Toggle Follow",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"vendor_id\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/user/follows/toggle", "host": ["{{base_url}}"], "path": ["api","v1","user","follows","toggle"] }
+          }
+        },
+        {
+          "name": "List Following",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/user/follows?per_page=15", "host": ["{{base_url}}"], "path": ["api","v1","user","follows"], "query": [{"key":"per_page","value":"15"}] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendor - Followers",
+      "item": [
+        {
+          "name": "List Followers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/followers?per_page=15", "host": ["{{base_url}}"], "path": ["api","v1","vendor","followers"], "query": [{"key":"per_page","value":"15"}] }
+          }
+        },
+        {
+          "name": "Followers Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Lang", "value": "en" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/followers/count", "host": ["{{base_url}}"], "path": ["api","v1","vendor","followers","count"] }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -76,6 +76,15 @@ return [
     'vendor.errors.not_approved' => 'التاجر غير معتمد لتنفيذ هذا الإجراء.',
     'vendor.errors.not_owner' => 'أنت لست مالك هذا المنتج.',
 
+    // follow
+    'follow.vendor_followed' => 'تم متابعة التاجر بنجاح.',
+    'follow.vendor_unfollowed' => 'تم إلغاء متابعة التاجر بنجاح.',
+    'follow.vendor_follow_toggled' => 'تم تحديث حالة المتابعة.',
+    'follow.list_following' => 'قائمة المتابعات تم جلبها بنجاح.',
+    'follow.list_followers' => 'قائمة المتابعين تم جلبها بنجاح.',
+    'follow.errors.vendor_not_found' => 'التاجر غير موجود.',
+    'follow.errors.cannot_follow_self' => 'لا يمكنك متابعة نفسك.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
