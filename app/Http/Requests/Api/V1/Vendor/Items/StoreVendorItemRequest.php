@@ -14,8 +14,9 @@ class StoreVendorItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'images' => 'required|array|min:1|max:5',
-            'images.*' => 'required|image|mimes:jpg,jpeg,png|max:4096',
+            // Make images optional: vendor may create item without uploading images
+            'images' => 'nullable|array|max:5',
+            'images.*' => 'image|mimes:jpg,jpeg,png|max:4096',
             'category_id' => 'required|exists:categories,id',
             'piece_type_id' => 'required|exists:piece_types,id',
             'name' => 'required|string|max:255',

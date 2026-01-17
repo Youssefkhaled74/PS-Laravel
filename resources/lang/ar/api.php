@@ -80,6 +80,7 @@ return [
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
     'validation.phone_required' => 'رقم الهاتف مطلوب.',
+    'validation.images_required' => 'يتطلب الأمر صورة واحدة على الأقل.',
     'validation.phone_unique' => 'رقم الهاتف موجود مسبقاً.',
     'validation.phone_not_found' => 'رقم الهاتف غير موجود.',
     'validation.email_invalid' => 'صيغة البريد الإلكتروني غير صحيحة.',

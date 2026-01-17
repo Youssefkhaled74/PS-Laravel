@@ -85,6 +85,7 @@ return [
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',
     'validation.phone_required' => 'Phone is required.',
+        'validation.images_required' => 'At least one image is required.',
     'validation.phone_unique' => 'Phone already exists.',
     'validation.phone_not_found' => 'Phone not found.',
     'validation.email_invalid' => 'Invalid email format.',
