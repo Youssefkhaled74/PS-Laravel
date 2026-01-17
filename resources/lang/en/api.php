@@ -78,6 +78,9 @@ return [
     'vendor.items.updated' => 'Item updated successfully.',
     'vendor.items.deleted' => 'Item deleted successfully.',
 
+    // vendor notifications
+    'vendor.notifications.list_success' => 'Notifications fetched successfully.',
+
     'vendor.errors.not_approved' => 'Vendor is not approved to perform this action.',
     'vendor.errors.not_owner' => 'You are not the owner of this item.',
 

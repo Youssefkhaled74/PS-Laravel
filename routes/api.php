@@ -55,4 +55,7 @@ Route::prefix('v1/vendor')->group(function () {
     
     // Items routes
     require __DIR__ . '/api/vendor/items.php';
+
+    // Notifications routes
+    require __DIR__ . '/api/vendor/notifications.php';
 });

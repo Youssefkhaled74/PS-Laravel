@@ -114,4 +114,9 @@ class Vendor extends Authenticatable
     {
         return $this->vendorPackageAssignments();
     }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(VendorNotification::class, 'vendor_id');
+    }
 }
