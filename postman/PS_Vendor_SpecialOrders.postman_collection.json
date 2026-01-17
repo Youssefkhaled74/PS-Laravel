@@ -1,0 +1,61 @@
+{
+  "info": {
+    "name": "PS - Vendor SpecialOrders",
+    "_postman_id": "ps-vendor-specialorders-0001",
+    "description": "Vendor inbox and actions for special orders",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Inbox",
+      "item": [
+        {
+          "name": "List Inbox",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/special-orders?per_page=20", "host": ["{{base_url}}"], "path": ["api","v1","vendor","special-orders"] }
+          }
+        },
+        {
+          "name": "Show Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/special-orders/{{order_id}}", "host": ["{{base_url}}"], "path": ["api","v1","vendor","special-orders","{{order_id}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Actions",
+      "item": [
+        {
+          "name": "Decide (Accept/Reject)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"accept\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/special-orders/{{order_id}}/decision", "host": ["{{base_url}}"], "path": ["api","v1","vendor","special-orders","{{order_id}}","decision"] }
+          }
+        }
+      ]
+    }
+  ]
+}

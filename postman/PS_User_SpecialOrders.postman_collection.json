@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "PS - User SpecialOrders",
+    "_postman_id": "ps-user-specialorders-0001",
+    "description": "User special orders flow (lookups, vendor selection, create, list, show)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Lookups",
+      "item": [
+        {
+          "name": "Get Lookups",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/special-orders/lookups", "host": ["{{base_url}}"], "path": ["api","v1","special-orders","lookups"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendors Browse",
+      "item": [
+        {
+          "name": "List Vendors",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/special-orders/vendors?per_page=20&search=", "host": ["{{base_url}}"], "path": ["api","v1","special-orders","vendors"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Special Orders",
+      "item": [
+        {
+          "name": "Create Special Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "multipart/form-data" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "category_id", "value": "1", "type": "text" },
+                { "key": "piece_type_id", "value": "1", "type": "text" },
+                { "key": "vendor_id", "value": "1", "type": "text" },
+                { "key": "details", "value": "Please find this piece", "type": "text" },
+                { "key": "urgent", "value": "0", "type": "text" },
+                { "key": "image", "type": "file" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/api/v1/special-orders", "host": ["{{base_url}}"], "path": ["api","v1","special-orders"] }
+          }
+        },
+        {
+          "name": "List User Special Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/special-orders?per_page=20", "host": ["{{base_url}}"], "path": ["api","v1","special-orders"] }
+          }
+        },
+        {
+          "name": "Get Special Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Lang", "value": "{{lang}}" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/special-orders/{{order_id}}", "host": ["{{base_url}}"], "path": ["api","v1","special-orders","{{order_id}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
