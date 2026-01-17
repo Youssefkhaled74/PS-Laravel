@@ -131,4 +131,13 @@ return [
     'validation.avatar_max' => 'Avatar size must not exceed 2MB.',
     'validation.otp_required' => 'OTP code is required.',
     'validation.otp_invalid_length' => 'OTP code must be 6 digits.',
+    // chat
+    'chat.conversation_list' => 'Conversations fetched successfully.',
+    'chat.conversation_created' => 'Conversation created.',
+    'chat.messages_list' => 'Messages fetched successfully.',
+    'chat.message_sent' => 'Message sent successfully.',
+    'chat.marked_read' => 'Conversation marked as read.',
+    'chat.last_message_attachment' => 'Attachment',
+    'chat.errors.unauthorized_conversation' => 'You are not a participant of this conversation.',
+    'chat.errors.empty_message' => 'Message cannot be empty.',
 ];

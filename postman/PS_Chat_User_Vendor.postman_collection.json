@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "PS - Chat User Vendor",
+    "_postman_id": "ps-chat-0001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User - Chat",
+      "item": [
+        {
+          "name": "Conversations - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/conversations", "host": ["{{base_url}}"], "path": ["api","v1","conversations"] }
+          }
+        },
+        {
+          "name": "Conversations - Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"vendor_id\": 1\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/conversations", "host": ["{{base_url}}"], "path": ["api","v1","conversations"] }
+          }
+        },
+        {
+          "name": "Messages - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/conversations/{{conversation_id}}/messages", "host": ["{{base_url}}"], "path": ["api","v1","conversations","{{conversation_id}}","messages"] }
+          }
+        },
+        {
+          "name": "Messages - Send",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"body\": \"Hello\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/conversations/{{conversation_id}}/messages", "host": ["{{base_url}}"], "path": ["api","v1","conversations","{{conversation_id}}","messages"] }
+          }
+        },
+        {
+          "name": "Conversation - Mark Read",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/conversations/{{conversation_id}}/read", "host": ["{{base_url}}"], "path": ["api","v1","conversations","{{conversation_id}}","read"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendor - Chat",
+      "item": [
+        {
+          "name": "Conversations - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/conversations", "host": ["{{base_url}}"], "path": ["api","v1","vendor","conversations"] }
+          }
+        },
+        {
+          "name": "Conversations - Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"user_id\": 1\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/conversations", "host": ["{{base_url}}"], "path": ["api","v1","vendor","conversations"] }
+          }
+        },
+        {
+          "name": "Messages - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/conversations/{{conversation_id}}/messages", "host": ["{{base_url}}"], "path": ["api","v1","vendor","conversations","{{conversation_id}}","messages"] }
+          }
+        },
+        {
+          "name": "Messages - Send",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"body\": \"Hello from vendor\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/vendor/conversations/{{conversation_id}}/messages", "host": ["{{base_url}}"], "path": ["api","v1","vendor","conversations","{{conversation_id}}","messages"] }
+          }
+        },
+        {
+          "name": "Conversation - Mark Read",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{vendor_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/vendor/conversations/{{conversation_id}}/read", "host": ["{{base_url}}"], "path": ["api","v1","vendor","conversations","{{conversation_id}}","read"] }
+          }
+        }
+      ]
+    }
+  ]
+}

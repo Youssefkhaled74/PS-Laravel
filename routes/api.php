@@ -30,6 +30,8 @@ Route::prefix('v1')->group(function () {
     require __DIR__ . '/api/user/favorites.php';
     require __DIR__ . '/api/user/notifications.php';
     require __DIR__ . '/api/user/special_orders.php';
+    // Chat
+    require __DIR__ . '/api/user/chat.php';
 });
 
 // Vendor API routes
@@ -71,4 +73,6 @@ Route::prefix('v1/vendor')->group(function () {
     require __DIR__ . '/api/vendor/stories.php';
     require __DIR__ . '/api/vendor/shipping.php';
     require __DIR__ . '/api/vendor/special_orders.php';
+    // Chat
+    require __DIR__ . '/api/vendor/chat.php';
 });

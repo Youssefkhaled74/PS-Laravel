@@ -124,4 +124,13 @@ return [
     'validation.avatar_max' => 'حجم الصورة الشخصية يجب ألا يتجاوز 2 ميجابايت.',
     'validation.otp_required' => 'رمز التحقق مطلوب.',
     'validation.otp_invalid_length' => 'رمز التحقق يجب أن يكون 6 أرقام.',
+    // chat
+    'chat.conversation_list' => 'تم جلب المحادثات بنجاح.',
+    'chat.conversation_created' => 'تم إنشاء المحادثة.',
+    'chat.messages_list' => 'تم جلب الرسائل بنجاح.',
+    'chat.message_sent' => 'تم إرسال الرسالة بنجاح.',
+    'chat.marked_read' => 'تم تعليم المحادثة كمقروءة.',
+    'chat.last_message_attachment' => 'مرفق',
+    'chat.errors.unauthorized_conversation' => 'أنت لست طرفاً في هذه المحادثة.',
+    'chat.errors.empty_message' => 'لا يمكن أن تكون الرسالة فارغة.',
 ];
