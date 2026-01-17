@@ -11,6 +11,8 @@ class VendorOtp extends Model
         'vendor_id',
         'phone',
         'otp_hash',
+        'purpose',
+        'reset_token_hash',
         'expires_at',
         'consumed_at',
         'resend_available_at',

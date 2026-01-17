@@ -34,7 +34,7 @@ class VendorOtpService
      * @return array
      * @throws \Exception
      */
-    public function send(string $phone): array
+    public function send(string $phone, string $purpose = 'VENDOR_REGISTER_VERIFY'): array
     {
         $vendor = Vendor::where('phone', $phone)->firstOrFail();
 
@@ -69,6 +69,7 @@ class VendorOtpService
             $vendorOtp = VendorOtp::create([
                 'vendor_id' => $vendor->id,
                 'phone' => $phone,
+                'purpose' => $purpose,
                 'otp_hash' => $otpHash,
                 'expires_at' => now()->addMinutes(self::OTP_EXPIRY_MINUTES),
                 'resend_available_at' => now()->addSeconds(self::RESEND_COOLDOWN_SECONDS),
@@ -92,6 +93,7 @@ class VendorOtpService
 
             $response = [
                 'phone' => $phone,
+                'otp_id' => $vendorOtp->id,
                 'resend_in_seconds' => self::RESEND_COOLDOWN_SECONDS,
                 'expires_in_seconds' => self::OTP_EXPIRY_MINUTES * 60,
             ];
@@ -100,6 +102,65 @@ class VendorOtpService
             if (config('app.otp_debug', false)) {
                 $response['otp'] = $otp;
             }
+
+            return $response;
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Create a reset token for a given vendor otp (by otp id)
+     *
+     * @param int $otpId
+     * @return string
+     */
+    public function createResetTokenForOtp(int $otpId): string
+    {
+        $token = \Illuminate\Support\Str::random(40);
+        DB::table('vendor_otps')->where('id', $otpId)->update(['reset_token_hash' => Hash::make($token)]);
+        return $token;
+    }
+
+    /**
+     * Create reset token by verifying phone+otp (used by password reset verify flow)
+     *
+     * @param string $phone
+     * @param string $otp
+     * @param string $purpose
+     * @return string
+     * @throws \Exception
+     */
+    public function createResetTokenForPhoneOtp(string $phone, string $otp, string $purpose = 'VENDOR_PASSWORD_RESET'): string
+    {
+        $vendor = Vendor::where('phone', $phone)->firstOrFail();
+
+        $vendorOtp = VendorOtp::where('vendor_id', $vendor->id)
+            ->where('purpose', $purpose)
+            ->whereNull('consumed_at')
+            ->latest('created_at')
+            ->first();
+
+        if (! $vendorOtp) {
+            throw new \Exception('otp_not_found');
+        }
+
+        if ($vendorOtp->isExpired()) {
+            throw new \Exception('otp_expired');
+        }
+
+        if (! Hash::check($otp, $vendorOtp->otp_hash)) {
+            $this->handleInvalidOtp($vendor, $vendorOtp);
+            // handleInvalidOtp throws
+        }
+
+        // create reset token
+        $token = \Illuminate\Support\Str::random(40);
+        DB::table('vendor_otps')->where('id', $vendorOtp->id)->update(['reset_token_hash' => Hash::make($token), 'consumed_at' => now()]);
+
+        return $token;
 
             return $response;
         } catch (\Exception $e) {
