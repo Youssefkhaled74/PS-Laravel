@@ -37,6 +37,7 @@ return [
         'stories' => 'Stories',
         'orders' => 'Orders',
         'products' => 'Products',
+        'items' => 'Items',
         'settings' => 'Settings',
         'legal_pages' => 'Terms & Privacy',
     ],
@@ -266,6 +267,7 @@ return [
     'update' => 'Update',
     'delete' => 'Delete',
     'cancel' => 'Cancel',
+    'ok' => 'OK',
     'confirm' => 'Confirm',
     'status_toggle' => 'Change Status',
     'status_toggle_confirm' => 'Are you sure you want to change the status?',
@@ -371,4 +373,30 @@ return [
             'expired' => '⏱️ Expired',
         ],
     ],
+
+    'items' => [
+        'title' => 'Items',
+        'name' => 'Name',
+        'status' => [
+            'pending' => 'Pending',
+            'approved' => 'Approved',
+            'rejected' => 'Rejected',
+        ],
+        'actions' => [
+            'view' => 'View',
+            'approve' => 'Approve',
+            'reject' => 'Reject',
+            'confirm_approve' => 'Are you sure you want to approve this item?',
+            'confirm_reject' => 'Are you sure you want to reject this item?'
+        ],
+        'messages' => [
+            'approved' => 'Item approved.',
+            'rejected' => 'Item rejected.',
+        ],
+        'reject_reason_prompt' => 'Please enter rejection reason:',
+        'reject_reason_label' => 'Rejection reason',
+        'reject_reason_placeholder' => 'Enter rejection reason...',
+        'reject_reason_required' => 'Please provide a rejection reason.'
+    ],
+    'price' => 'Price',
 ];

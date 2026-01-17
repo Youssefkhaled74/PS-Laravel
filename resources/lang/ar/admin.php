@@ -39,6 +39,7 @@ return [
         'stories' => 'الستوريز',
         'orders' => 'الطلبات',
         'products' => 'المنتجات',
+        'items' => 'المنتجات (Items)',
         'settings' => 'الإعدادات',
         'legal_pages' => 'الشروط والخصوصية',
     ],
@@ -257,6 +258,7 @@ return [
     'update' => 'تحديث',
     'delete' => 'حذف',
     'cancel' => 'إلغاء',
+    'ok' => 'موافق',
     'confirm' => 'تأكيد',
     'status_toggle' => 'تغيير الحالة',
     'status_toggle_confirm' => 'هل أنت متأكد من تغيير الحالة؟',
@@ -358,5 +360,31 @@ return [
             'expired' => '⏱️ منتهي',
         ],
     ],
+
+    'items' => [
+        'title' => 'المنتجات',
+        'name' => 'الاسم',
+        'status' => [
+            'pending' => 'قيد الانتظار',
+            'approved' => 'مقبول',
+            'rejected' => 'مرفوض',
+        ],
+        'actions' => [
+            'view' => 'عرض',
+            'approve' => 'الموافقة',
+            'reject' => 'رفض',
+            'confirm_approve' => 'هل أنت متأكد من الموافقة على هذا المنتج؟',
+            'confirm_reject' => 'هل أنت متأكد من رفض هذا المنتج؟'
+        ],
+        'messages' => [
+            'approved' => 'تمت الموافقة على المنتج.',
+            'rejected' => 'تم رفض المنتج.',
+        ],
+        'reject_reason_prompt' => 'يرجى إدخال سبب الرفض:',
+        'reject_reason_label' => 'سبب الرفض',
+        'reject_reason_placeholder' => 'أدخل سبب الرفض...',
+        'reject_reason_required' => 'يرجى تقديم سبب الرفض.'
+    ],
+    'price' => 'السعر',
 ];
 

@@ -14,6 +14,7 @@ Route::group(['middleware' => ['web', \App\Http\Middleware\SetAdminLocale::class
     require __DIR__ . '/web/admin/vendor-packages.php';
     require __DIR__ . '/web/admin/otps.php';
     require __DIR__ . '/web/admin/vendors.php';
+    require __DIR__ . '/web/admin/items.php';
     require __DIR__ . '/web/admin/legal-pages.php';
     // vendor onboarding (public + vendor-guarded)
     require __DIR__ . '/web/vendor_onboarding.php';

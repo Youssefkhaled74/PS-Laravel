@@ -86,6 +86,11 @@
     <span class="nav-tx">{{ __('admin.sidebar.products') }}</span>
   </a>
 
+  <a href="{{ route('admin.items.index') }}" class="{{ str_contains(request()->route()->getName() ?? '', 'admin.items') ? 'active' : '' }}">
+    <span class="nav-ic">{!! $icon('products') !!}</span>
+    <span class="nav-tx">{{ __('admin.sidebar.items') }}</span>
+  </a>
+
   <a href="{{ route('admin.categories.index') }}" class="{{ $is('admin.categories.index') ? 'active' : '' }}">
     <span class="nav-ic">{!! $icon('categories') !!}</span>
     <span class="nav-tx">{{ __('admin.sidebar.categories') }}</span>
