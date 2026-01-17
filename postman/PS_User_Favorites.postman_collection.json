@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "PS - User Favorites",
+    "_postman_id": "ps-user-favorites-0001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Favorites",
+      "item": [
+        {
+          "name": "Favorites - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/favorites?q=&per_page=12", "host": ["{{base_url}}"], "path": ["api","v1","favorites"] }
+          }
+        },
+        {
+          "name": "Favorites - Toggle",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"product_id\": 1\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/favorites/toggle", "host": ["{{base_url}}"], "path": ["api","v1","favorites","toggle"] }
+          }
+        },
+        {
+          "name": "Favorites - Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/favorites/count", "host": ["{{base_url}}"], "path": ["api","v1","favorites","count"] }
+          }
+        }
+      ]
+    }
+  ]
+}

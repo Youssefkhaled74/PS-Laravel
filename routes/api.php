@@ -27,6 +27,7 @@ require __DIR__ . '/api/user/follows.php';
 Route::prefix('v1')->group(function () {
     require __DIR__ . '/api/user/cart.php';
     require __DIR__ . '/api/user/checkout.php';
+    require __DIR__ . '/api/user/favorites.php';
     require __DIR__ . '/api/user/notifications.php';
     require __DIR__ . '/api/user/special_orders.php';
 });

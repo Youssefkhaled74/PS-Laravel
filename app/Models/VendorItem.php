@@ -31,6 +31,11 @@ class VendorItem extends Model
         return $this->belongsTo(Vendor::class);
     }
 
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(VendorItemImage::class);

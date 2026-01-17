@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        if (! Schema::hasTable('user_favorites')) {
+            Schema::create('user_favorites', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('product_id')->constrained('vendor_items')->onDelete('cascade');
+                $table->timestamps();
+
+                $table->unique(['user_id', 'product_id']);
+                $table->index('user_id');
+                $table->index('product_id');
+            });
+        }
+    }
+
+    public function down(): void
+    {
+        if (Schema::hasTable('user_favorites')) Schema::dropIfExists('user_favorites');
+    }
+};

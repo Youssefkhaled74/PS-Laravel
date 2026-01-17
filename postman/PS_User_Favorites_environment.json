@@ -1,0 +1,9 @@
+{
+  "id": "ps-user-favorites-env-0001",
+  "name": "PS Local - Favorites",
+  "values": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" },
+    { "key": "user_token", "value": "" }
+  ],
+  "_postman_variable_scope": "environment"
+}
