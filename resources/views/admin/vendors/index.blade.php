@@ -39,7 +39,9 @@
                 </td>
                 <td>{{ $v->email }}</td>
                 <td>{{ $v->phone }}</td>
-                <td>{{ optional($v->activePackageAssignment)->vendor_package_id ?? __('admin.vendor_package_assign.not_assigned') }}</td>
+                <td>
+                  {{ optional(optional($v->activePackageAssignment)->package)->getName() ?? __('admin.vendor_package_assign.not_assigned') }}
+                </td>
                 <td>
                   <div class="actions">
                     <a href="{{ route('admin.vendors.show', $v->id) }}" class="btn btn-ghost btn-sm">{{ __('admin.view') ?? 'View' }}</a>

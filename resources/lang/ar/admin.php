@@ -243,6 +243,8 @@ return [
         'title' => 'المستخدمين',
         'subtitle' => 'إدارة مستخدمي النظام',
     ],
+    'addresses' => 'العناوين',
+    'payment_methods' => 'طرق الدفع',
     'actions' => 'الإجراءات',
     'save' => 'حفظ',
     'update' => 'تحديث',

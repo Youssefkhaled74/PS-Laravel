@@ -253,6 +253,8 @@ return [
         'address' => 'Address',
         'no_addresses' => 'No addresses found',
     ],
+    'addresses' => 'Addresses',
+    'payment_methods' => 'Payment Methods',
     'actions' => 'Actions',
     'save' => 'Save',
     'update' => 'Update',
