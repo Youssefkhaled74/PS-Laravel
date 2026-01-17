@@ -33,4 +33,18 @@ class VendorService
         $vendor->status = $vendor->status === 'active' ? 'inactive' : 'active';
         $vendor->save();
     }
+
+    /**
+     * Set explicit status for a vendor
+     *
+     * @param Vendor $vendor
+     * @param string $status
+     * @return Vendor
+     */
+    public function setStatus(Vendor $vendor, string $status): Vendor
+    {
+        $vendor->status = $status;
+        $vendor->save();
+        return $vendor;
+    }
 }

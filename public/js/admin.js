@@ -83,13 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', copyHandler);
   })();
 
-  ```
-    if (!sidebar) return;
-    sidebar.classList.remove('is-open');
-    overlay?.classList.remove('is-visible');
-    document.body.classList.remove('no-scroll');
-  };
-
   burger?.addEventListener('click', openSidebar);
   closeBtn?.addEventListener('click', closeSidebar);
   overlay?.addEventListener('click', closeSidebar);

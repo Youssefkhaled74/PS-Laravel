@@ -53,9 +53,16 @@ class VendorController extends Controller
         return Redirect::route('admin.vendors.show', $vendor->id)->with('success', __('admin.updated_success'));
     }
 
-    public function toggleStatus(Vendor $vendor, VendorService $service)
+    public function toggleStatus(Request $request, Vendor $vendor, VendorService $service)
     {
-        $service->toggleStatus($vendor);
+        // If explicit status provided, set it; otherwise toggle between active/inactive
+        $status = $request->input('status');
+        if ($status) {
+            $service->setStatus($vendor, $status);
+        } else {
+            $service->toggleStatus($vendor);
+        }
+
         return Redirect::route('admin.vendors.show', $vendor->id)->with('success', __('admin.status_toggled'));
     }
 }

@@ -32,7 +32,25 @@
             <div class="h2">{{ $vendor->name }}</div>
             <div class="small">{{ $vendor->email }}</div>
             <div class="small">{{ $vendor->phone }}</div>
-            <div class="small">{{ __('admin.status') }}: <strong>{{ $vendor->status }}</strong></div>
+            <div class="small">
+              {{ __('admin.status') }}: <strong>{{ \Illuminate\Support\Facades\Lang::has('admin.statuses.' . $vendor->status) ? __('admin.statuses.' . $vendor->status) : ucfirst($vendor->status) }}</strong>
+            </div>
+            <div style="margin-top:.4rem">
+              <form action="{{ route('admin.vendors.toggle', $vendor->id) }}" method="POST" class="inline-form js-confirm" data-confirm="{{ __('admin.status_toggle_confirm') }}">
+                @csrf
+                @method('PATCH')
+                <label class="label small">Change status</label>
+                <div style="display:flex;gap:.5rem;align-items:center">
+                  <select name="status" class="input">
+                    <option value="active" {{ $vendor->status === 'active' ? 'selected' : '' }}>{{ __('admin.statuses.active') }}</option>
+                    <option value="inactive" {{ $vendor->status === 'inactive' ? 'selected' : '' }}>{{ __('admin.statuses.inactive') }}</option>
+                    <option value="pending" {{ $vendor->status === 'pending' ? 'selected' : '' }}>{{ __('admin.statuses.pending') }}</option>
+                    <option value="suspended" {{ $vendor->status === 'suspended' ? 'selected' : '' }}>{{ __('admin.statuses.suspended') }}</option>
+                  </select>
+                  <button class="btn btn-ghost" type="submit">{{ __('admin.status_toggle') ?? 'Change' }}</button>
+                </div>
+              </form>
+            </div>
             <div class="small">{{ __('admin.created_at') ?? 'Created at' }}: {{ $vendor->created_at->format('Y-m-d') }}</div>
           </div>
         </div>

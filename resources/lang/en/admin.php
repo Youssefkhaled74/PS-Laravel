@@ -150,6 +150,12 @@ return [
         'assigned_success' => 'Package assigned to vendor',
         'not_assigned' => 'No package assigned',
     ],
+    'statuses' => [
+        'active' => 'Active',
+        'inactive' => 'Inactive',
+        'pending' => 'Pending',
+        'suspended' => 'Suspended',
+    ],
     'otps' => [
         'title' => 'OTPs',
         'subtitle' => 'Manage one-time codes sent to users',

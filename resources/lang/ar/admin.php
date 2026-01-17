@@ -150,6 +150,12 @@ return [
         'assigned_success' => 'تم تعيين الباقة للبائع',
         'not_assigned' => 'لم يتم تعيين باقة',
     ],
+    'statuses' => [
+        'active' => 'مفعل',
+        'inactive' => 'معطل',
+        'pending' => 'قيد الانتظار',
+        'suspended' => 'موقوف',
+    ],
     'otps' => [
         'title' => 'رموز التحقق',
         'subtitle' => 'إدارة رموز التحقق المرسلة للمستخدمين',
