@@ -93,6 +93,14 @@ return [
     'follow.errors.vendor_not_found' => 'Vendor not found.',
     'follow.errors.cannot_follow_self' => 'You cannot follow yourself.',
 
+    // cart
+    'cart.added' => 'Item added to cart.',
+    'cart.updated' => 'Cart updated.',
+    'cart.errors.vendor_mismatch' => 'Cart contains items from another vendor.',
+    'cart.errors.item_not_found' => 'Item not found.',
+    'cart.errors.invalid_quantity' => 'Invalid quantity requested.',
+    'cart.errors.out_of_stock' => 'Requested quantity not available.',
+
     // validation
     'validation.full_name_required' => 'Full name is required.',
     'validation.full_name_min' => 'Full name must be at least 3 characters.',

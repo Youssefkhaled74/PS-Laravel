@@ -23,6 +23,10 @@ require __DIR__ . '/api/user_profile.php';
 require __DIR__ . '/api/user_addresses.php';
 require __DIR__ . '/api/stories.php';
 require __DIR__ . '/api/user/follows.php';
+// User v1 APIs
+Route::prefix('v1')->group(function () {
+    require __DIR__ . '/api/user/cart.php';
+});
 
 // Vendor API routes
 Route::prefix('v1/vendor')->group(function () {

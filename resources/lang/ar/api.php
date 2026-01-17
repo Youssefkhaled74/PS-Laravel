@@ -85,6 +85,14 @@ return [
     'follow.errors.vendor_not_found' => 'التاجر غير موجود.',
     'follow.errors.cannot_follow_self' => 'لا يمكنك متابعة نفسك.',
 
+    // cart
+    'cart.added' => 'تمت إضافة العنصر إلى السلة.',
+    'cart.updated' => 'تم تحديث السلة.',
+    'cart.errors.vendor_mismatch' => 'السلة تحتوي على عناصر من بائع آخر.',
+    'cart.errors.item_not_found' => 'العنصر غير موجود.',
+    'cart.errors.invalid_quantity' => 'الكمية المطلوبة غير صالحة.',
+    'cart.errors.out_of_stock' => 'الكمية المطلوبة غير متوفرة.',
+
     // validation
     'validation.full_name_required' => 'الاسم الكامل مطلوب.',
     'validation.full_name_min' => 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل.',
